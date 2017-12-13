@@ -73,7 +73,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('update_rebel', function(data) {
       var xwing;
       for (var i = XWings.length - 1; i >= 0; i--) {
-        if (socket.id == XWings[i].id) {
+        if (data.id == XWings[i].id) {
           xwing = XWings[i];
           xwing.x = data.x;
           xwing.y = data.y;
@@ -89,7 +89,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('update_empire', function(data) {
       var tie;
       for (var i = Ties.length - 1; i >= 0; i--) {
-        if (socket.id == Ties[i].id) {
+        if (data.id == Ties[i].id) {
           tie = Ties[i];
           tie.x = data.x;
           tie.y = data.y;
