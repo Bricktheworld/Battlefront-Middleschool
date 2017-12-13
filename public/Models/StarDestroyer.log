@@ -1,0 +1,27 @@
+	Exporter version: 4.6.1, Blender version: 2.69 (sub 0)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used:
+		selected layers only:  false
+		flat shading entire scene:  false
+		inline textures:  false
+		texture directory:  /home/bricktheworld/Downloads/Code/Battlefront/public/Models/
+	Python World class constructor completed
+	processing begun of camera (FreeCamera):  Camera
+		animation processing begun
+			processing action CameraWithoutDOFAction:  in[20 - 20], out[0 - 20]
+			processing action TieFighterAction:  in[1 - 250], out[30 - 280]
+	processing begun of node:  StarDestroyer
+	processing begun of mesh:  Engines
+		processing begun of baked material:  Engines
+========= An error was encountered =========
+  File "/home/bricktheworld/.config/blender/2.69/scripts/addons/io_export_babylon.py", line 330, in execute
+    mesh = Mesh(object, scene, nextStartFace, forcedParent, nameID, self)
+  File "/home/bricktheworld/.config/blender/2.69/scripts/addons/io_export_babylon.py", line 787, in __init__
+    bakedMat = BakedMaterial(exporter, object, recipe)
+  File "/home/bricktheworld/.config/blender/2.69/scripts/addons/io_export_babylon.py", line 2117, in __init__
+    bpy.ops.uv.smart_project(angle_limit = 66.0, island_margin = 0.0, user_area_weight = 1.0, use_aspect = True)
+  File "/usr/share/blender/scripts/modules/bpy/ops.py", line 188, in __call__
+    ret = op_call(self.idname_py(), None, kw)
+ERROR:  Converting py args to operator properties: : keyword "use_aspect" unrecognized
+========= end of processing =========
+elapsed time:  0 min, 0.0528 secs

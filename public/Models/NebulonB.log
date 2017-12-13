@@ -1,0 +1,125 @@
+	Exporter version: 4.6.1, Blender version: 2.69 (sub 0)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used:
+		selected layers only:  false
+		flat shading entire scene:  false
+		inline textures:  false
+		texture directory:  /home/bricktheworld/Downloads/Code/Battlefront/public/Models/
+	Python World class constructor completed
+	processing begun of mesh:  Object01
+		processing begun of Standard material:  _nebulon0_INSIDE
+			Diffuse texture found "Diffuse"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+			Bump texture found "Bump"
+				Image texture found, type:  bumpTexture, mapped using: "UVMap"
+		num positions      :  410
+		num normals        :  410
+		num uvs            :  820
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2400
+	processing begun of mesh:  Object40
+		processing begun of Standard material:  _nebulon0_OUT1
+			Diffuse texture found "Diffuse.003"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+			Bump texture found "Bump.003"
+				Image texture found, type:  bumpTexture, mapped using: "UVMap"
+		processing begun of Standard material:  _nebulon0_OUTSID
+			Diffuse texture found "Diffuse.002"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+			Bump texture found "Bump.002"
+				Image texture found, type:  bumpTexture, mapped using: "UVMap"
+		processing begun of Standard material:  _nebulon0_INS1
+			Diffuse texture found "Diffuse.001"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+			Bump texture found "Bump.001"
+				Image texture found, type:  bumpTexture, mapped using: "UVMap"
+		registered as also a user of material:  _nebulon0_INSIDE
+		processing begun of Standard material:  _nebulonDefault
+		processing begun of multimaterial:  NebulonB.Multimaterial#0
+		num positions      :  7183
+		num normals        :  7183
+		num uvs            :  14366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  34728
+	processing begun of mesh:  Object03
+		registered as also a user of material:  _nebulon0_INS1
+		registered as also a user of material:  _nebulon0_INSIDE
+		registered as also a user of material:  _nebulon0_OUTSID
+		registered as also a user of material:  _nebulon0_OUT1
+		registered as also a user of material:  _nebulonDefault
+		processing begun of multimaterial:  NebulonB.Multimaterial#1
+		num positions      :  3865
+		num normals        :  3865
+		num uvs            :  7730
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  19986
+	processing begun of mesh:  Object05
+		processing begun of Standard material:  _nebulon0_TOP
+			Diffuse texture found "Diffuse.005"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+		num positions      :  845
+		num normals        :  845
+		num uvs            :  1690
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4242
+	processing begun of mesh:  Object06
+		processing begun of Standard material:  _nebulon0_ENGINE
+			Diffuse texture found "Diffuse.004"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+			Bump texture found "Bump.004"
+				Image texture found, type:  bumpTexture, mapped using: "UVMap"
+		num positions      :  1084
+		num normals        :  1084
+		num uvs            :  2168
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  5544
+	processing begun of mesh:  Object04
+		registered as also a user of material:  _nebulon0_INSIDE
+		num positions      :  926
+		num normals        :  926
+		num uvs            :  1852
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4644
+	processing begun of mesh:  Object11
+		registered as also a user of material:  _nebulon0_INSIDE
+		processing begun of Standard material:  _nebulon0_WHITE_
+		processing begun of multimaterial:  NebulonB.Multimaterial#2
+		num positions      :  1400
+		num normals        :  1400
+		num uvs            :  2800
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7056
+	processing begun of mesh:  Object02
+		registered as also a user of material:  _nebulon0_INSIDE
+		registered as also a user of material:  _nebulon0_OUTSID
+		registered as also a user of material:  _nebulon0_OUT1
+		processing begun of multimaterial:  NebulonB.Multimaterial#3
+		num positions      :  255
+		num normals        :  255
+		num uvs            :  510
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1506
+	processing begun of mesh:  Object39
+		registered as also a user of material:  _nebulon0_INSIDE
+		registered as also a user of material:  _nebulon0_INS1
+		processing begun of multimaterial:  NebulonB.Multimaterial#4
+		num positions      :  2876
+		num normals        :  2876
+		num uvs            :  5752
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  12012
+	processing begun of camera (FreeCamera):  Camera
+	processing begun of light (POINT):  Lamp
+========= Writing of scene file started =========
+========= Writing of scene file completed =========
+========= end of processing =========
+elapsed time:  0 min, 4.99 secs

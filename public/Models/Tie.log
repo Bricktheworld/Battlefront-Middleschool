@@ -1,0 +1,32 @@
+	Exporter version: 4.6.1, Blender version: 2.69 (sub 0)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used:
+		selected layers only:  false
+		flat shading entire scene:  false
+		inline textures:  false
+		texture directory:  /home/bricktheworld/Downloads/Code/Battlefront/public/Models/
+	Python World class constructor completed
+	processing begun of mesh:  Tie
+		processing begun of Standard material:  hullblue
+		processing begun of Standard material:  drk_gray
+		processing begun of Standard material:  panl_blk
+		processing begun of Standard material:  lasered
+		processing begun of Standard material:  blackred
+		processing begun of Standard material:  englored
+		processing begun of Standard material:  gray
+		processing begun of Standard material:  rib_gray
+		processing begun of Standard material:  mid_gray
+		processing begun of multimaterial:  Tie.Multimaterial#0
+		num positions      :  38510
+		num normals        :  38510
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  162558
+	processing begun of camera (FreeCamera):  Camera_Perspective46
+	processing begun of light (POINT):  V_Ray_Omni
+	processing begun of light (POINT):  V_Ray_Omni1
+========= Writing of scene file started =========
+========= Writing of scene file completed =========
+========= end of processing =========
+elapsed time:  0 min, 8.0683 secs

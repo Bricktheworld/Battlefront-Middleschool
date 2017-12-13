@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Battlefront-BETA</title>
+	<meta charset="utf-8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+	<script src="libraries/babylon.custom.js"></script>
+	<script src="libraries/p5.js"></script>
+	<script src="libraries/p5.dom.js"></script>
+	<script src="libraries/p5.sound.js"></script>
+	<script src="libraries/jquery-3.2.1.slim.min.js"></script>
+	<style>
+		html,
+		body,
+		#canvas {
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+			overflow: hidden;
+			position: fixed;
+			z-index: 1;
+		}
+
+		#sketch-holder {
+			position: fixed;
+			z-index: 900;
+		}
+
+		#JoinRebelButton {
+			background-color: rgba(0, 0, 0, 0);
+			background-image: url("Models/rebel.png");
+			background-size: 600px 700px;
+			border: none;
+			color: black;
+			padding: 300px 300px;
+			text-decoration: none;
+			margin: 4px 4px;
+			cursor: pointer;
+			right: 30px;
+			top: 0px;
+			position: fixed;
+			z-index: -900;
+		}
+
+		#JoinEmpireButton {
+			background-color: rgba(0, 0, 0, 0);
+			background-image: url("Models/empire.png");
+			background-size: 587px 587px;
+			border: none;
+			color: black;
+			padding: 300px 300px;
+			text-decoration: none;
+			margin: 4px 4px;
+			cursor: pointer;
+			left: 30px;
+			top: 40px;
+			position: fixed;
+			z-index: -900;
+		}
+
+		#UserNameField {
+			background-color: rgba(0, 0, 0, 1);
+			color: rgba(255, 255, 255, 1);
+			font-size: 200%;
+			text-align: center;
+			width: 50%;
+			padding: 30px 30px;
+			margin: 8px 0;
+			box-sizing: border-box;
+			border: 8px solid white;
+			border-radius: 4px;
+			left: 400px;
+			top: 300px;
+			position: fixed;
+			z-index: -900;
+		}
+
+
+		#chatInput {
+			background: rgba(0, 0, 0, 0.5);
+			display: block;
+			position: fixed;
+			width: 80%;
+			left: 50px;
+			bottom: 40px;
+			z-index: 1000;
+			padding: 5px;
+			padding: 4px;
+			padding-left: 34px;
+			display: none;
+		}
+
+		#chatSymbol {
+			position: absolute;
+			left: 10px;
+			color: white;
+			font-weight: bold;
+			padding-top: 2px;
+		}
+
+		#chatInputField {
+			font-size: 17px;
+			background: transparent;
+			width: 100%;
+			outline: 0px;
+			color: white;
+			border: 0px solid black;
+		}
+
+
+		#chatWindows {
+			display: block;
+			position: fixed;
+			width: 80%;
+			left: 50px;
+			bottom: 80px;
+			z-index: 1000;
+			background: transparent;
+			height: 100%;
+			pointer-events: none;
+		}
+
+		#chatMsg_wrapper {
+			position: absolute;
+			height: auto;
+			bottom: 0;
+			background: transparent;
+			width: 100%;
+		}
+	</style>
+
+
+</head>
+
+<body>
+	<canvas id="canvas"></canvas>
+	<div id="sketch-holder"></div>
+	<div id="chatWindows">
+		<div id="chatMsg_wrapper">
+		</div>
+	</div>
+	<form id="chatInput" action="#">
+		<div id="chatSymbol">>></div>
+		<input id="chatInputField" />
+	</form>
+	<button id="JoinRebelButton" onclick="JoinRebel()"></button>
+	<button id="JoinEmpireButton" onclick="JoinEmpire()"></button>
+	<input type="text" id="UserNameField" onkeydown="SetUsername(this)" placeholder="Enter Username" maxlength="30"/>
+
+
+
+	<script src="sketch.js"></script>
+	<script src="rebel.js"></script>
+	<script src="empire.js"></script>
+	<script src="Players.js"></script>
+	<script src="UI.js"></script>
+
+
+
+</body>
+
+</html>
