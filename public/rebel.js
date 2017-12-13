@@ -278,7 +278,7 @@ var Play_Game_As_Rebel = function() {
       xwinglazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
       xwinglazer.timeout -= 1;
       Ties.forEach(function(tie, index_tie) {
-        if (xwinglazer.intersectsMesh(tie.tie, false)) {
+        if (xwinglazer.intersectsMesh(tie.tie, false) && xwinglazer.timeout > 0) {
           XWinglazermodels[index_lazer].visibility = 0;
           XWinglazermodels.splice(index_lazer, 1);
           XWinglazers.splice(index_lazer, 1);
@@ -289,7 +289,7 @@ var Play_Game_As_Rebel = function() {
       tielazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
       tielazer.timeout -= 1;
       XWings.forEach(function(xwing, index_xwing) {
-        if (tielazer.intersectsMesh(xwing.xwing, false)) {
+        if (tielazer.intersectsMesh(xwing.xwing, false) && tielazer.timeout > 0) {
           if (tielazer.intersectsMesh(playerbox, false)) {
             health -= 20;
             if (health <= 0) {

@@ -279,7 +279,7 @@ var Play_Game_As_Imperial = function() {
       xwinglazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
       xwinglazer.timeout -= 1;
       Ties.forEach(function(tie, index_tie) {
-        if (xwinglazer.intersectsMesh(tie.tie, false)) {
+        if (xwinglazer.intersectsMesh(tie.tie, false) && xwinglazer.timeout > 0) {
           if (xwinglazer.intersectsMesh(playerbox, false)) {
             health -= 50;
             if (health <= 0) {
@@ -303,7 +303,7 @@ var Play_Game_As_Imperial = function() {
       tielazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
       tielazer.timeout -= 1;
       XWings.forEach(function(xwing, index_xwing) {
-        if (tielazer.intersectsMesh(xwing.xwing, false)) {
+        if (tielazer.intersectsMesh(xwing.xwing, false) && tielazer.timeout > 0) {
           Tielazermodels[index_lazer].visibility = 0;
           Tielazermodels.splice(index_lazer, 1);
           Tielazers.splice(index_lazer, 1);

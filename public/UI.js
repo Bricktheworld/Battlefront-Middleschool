@@ -28,6 +28,15 @@ var sketch = function(p5) {
     p5.textSize(30);
     p5.stroke(255);
     p5.text("Kills: " + selfkills.length, 60, 60);
+    socket.on('numbers', function(XWingslength, Tieslength){
+      p5.stroke(255);
+      p5.fill(255);
+      p5.textAlign(p5.CENTER);
+      p5.textSize(20);
+      p5.text(XWingslength, p5.windowWidth - 20, p5.windowHeight + 20);
+      p5.text(Tieslength, p5.windowWidth - 20, p5.windowHeight + 40);
+      console.log("stuff");
+    });
     // if (outsidewarning == true && outside == false && alive == true) {
     //   p5.noStroke();
     //   p5.fill(50, 80);
