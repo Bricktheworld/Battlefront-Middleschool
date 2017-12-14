@@ -47,7 +47,6 @@ function heartbeat() {
 
 io.sockets.on('connection', function(socket) {
   var side;
-  socket.emit('numbers', XWings.length);
   socket.on('startdata', function(data) {
     side = data.team;
     socket.username = data.username;
