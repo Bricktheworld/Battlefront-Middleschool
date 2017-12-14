@@ -28,6 +28,7 @@ var Play_Game_As_Rebel = function() {
 
   //setting the parent of camera to labox so that it moves with it
   camera.parent = camerabox;
+  camera.maxZ = 200000;
 
 
   //particle shit

@@ -29,6 +29,7 @@ var Play_Game_As_Imperial = function() {
 
   //setting the parent of camera to labox so that it moves with it
   camera.parent = camerabox;
+  camera.maxZ = 200000;
 
 
   //particle shit
@@ -127,7 +128,6 @@ var Play_Game_As_Imperial = function() {
     var place = Tielazers.length + 1;
     var newlazerthing = BABYLON.Mesh.CreateBox("Tielazers[" + place + "]", 20, scene);
     newlazerthing.visibility = 0;
-    newlazerthing.setPivotMatrix(BABYLON.Matrix.Translation(0, -7, 0));
     newlazerthing.position.x = data.x
     newlazerthing.position.y = data.y
     newlazerthing.position.z = data.z
@@ -175,28 +175,28 @@ var Play_Game_As_Imperial = function() {
     selfkills.unshift(username);
   });
   setInterval(function() {
-//     XWinglazers.forEach(function(xwinglazer, i) {
-//       XWinglazermodels.forEach(function(xwinglazermodel, j) {
-//         if (xwinglazer.timeout < 0) {
-//           xwinglazermodel.visibility = 0;
-//           xwinglazermodel.dispose();
-//           XWinglazermodels.splice(j, 1);
-//           xwinglazer.dispose();
-//           XWinglazers.splice(i, 1);
-//         }
-//       });
-//     });
-//     Tielazers.forEach(function(tielazer, i) {
-//       Tielazermodels.forEach(function(tielazermodel, j) {
-//         if (tielazer.timeout < 0) {
-//           tielazermodel.visibility = 0;
-//           tielazermodel.dispose();
-//           Tielazermodels.splice(j, 1);
-//           tielazer.dispose();
-//           Tielazers.splice(i, 1);
-//         }
-//       });
-//     });
+    //     XWinglazers.forEach(function(xwinglazer, i) {
+    //       XWinglazermodels.forEach(function(xwinglazermodel, j) {
+    //         if (xwinglazer.timeout < 0) {
+    //           xwinglazermodel.visibility = 0;
+    //           xwinglazermodel.dispose();
+    //           XWinglazermodels.splice(j, 1);
+    //           xwinglazer.dispose();
+    //           XWinglazers.splice(i, 1);
+    //         }
+    //       });
+    //     });
+    //     Tielazers.forEach(function(tielazer, i) {
+    //       Tielazermodels.forEach(function(tielazermodel, j) {
+    //         if (tielazer.timeout < 0) {
+    //           tielazermodel.visibility = 0;
+    //           tielazermodel.dispose();
+    //           Tielazermodels.splice(j, 1);
+    //           tielazer.dispose();
+    //           Tielazers.splice(i, 1);
+    //         }
+    //       });
+    //     });
     for (var i = Blasts.length - 1; i >= 0; i--) {
       let specificblast = Blasts[i];
       if (Blasts[i].killtime < 0) {
@@ -269,10 +269,10 @@ var Play_Game_As_Imperial = function() {
     // scene.getMeshByName("lagbox").position = scene.getMeshByName("playerbox").position;
     // var lagrotation = BABYLON.Vector3.Lerp(scene.getMeshByName("lagbox").rotation, scene.getMeshByName("playerbox").rotation, 1);
     // scene.getMeshByName("lagbox").rotation = lagrotation;
-    for(var i = XWings.length - 1; i >= 0; i--){
+    for (var i = XWings.length - 1; i >= 0; i--) {
       XWings[i].update();
     }
-    for(var i = Ties.length - 1; i >= 0; i--){
+    for (var i = Ties.length - 1; i >= 0; i--) {
       Ties[i].update();
     }
 
