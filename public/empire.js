@@ -353,7 +353,7 @@ var Play_Game_As_Imperial = function() {
     } else {
       velocity = 0;
     }
-    if (keys.space && alive === false) {
+    if (keys.space) {
       socket.emit('empire_shoot', data);
       keys.space = false;
     }
