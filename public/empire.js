@@ -127,6 +127,7 @@ var Play_Game_As_Imperial = function() {
     var place = Tielazers.length + 1;
     var newlazerthing = BABYLON.Mesh.CreateBox("Tielazers[" + place + "]", 20, scene);
     newlazerthing.visibility = 0;
+    newlazerthing.setPivotMatrix(BABYLON.Matrix.Translation(0, -7, 0));
     newlazerthing.position.x = data.x
     newlazerthing.position.y = data.y
     newlazerthing.position.z = data.z
