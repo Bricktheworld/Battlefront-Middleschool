@@ -174,28 +174,28 @@ var Play_Game_As_Imperial = function() {
     selfkills.unshift(username);
   });
   setInterval(function() {
-    XWinglazers.forEach(function(xwinglazer, i) {
-      XWinglazermodels.forEach(function(xwinglazermodel, j) {
-        if (xwinglazer.timeout < 0) {
-          xwinglazermodel.visibility = 0;
-          xwinglazermodel.dispose();
-          XWinglazermodels.splice(j, 1);
-          xwinglazer.dispose();
-          XWinglazers.splice(i, 1);
-        }
-      });
-    });
-    Tielazers.forEach(function(tielazer, i) {
-      Tielazermodels.forEach(function(tielazermodel, j) {
-        if (tielazer.timeout < 0) {
-          tielazermodel.visibility = 0;
-          tielazermodel.dispose();
-          Tielazermodels.splice(j, 1);
-          tielazer.dispose();
-          Tielazers.splice(i, 1);
-        }
-      });
-    });
+//     XWinglazers.forEach(function(xwinglazer, i) {
+//       XWinglazermodels.forEach(function(xwinglazermodel, j) {
+//         if (xwinglazer.timeout < 0) {
+//           xwinglazermodel.visibility = 0;
+//           xwinglazermodel.dispose();
+//           XWinglazermodels.splice(j, 1);
+//           xwinglazer.dispose();
+//           XWinglazers.splice(i, 1);
+//         }
+//       });
+//     });
+//     Tielazers.forEach(function(tielazer, i) {
+//       Tielazermodels.forEach(function(tielazermodel, j) {
+//         if (tielazer.timeout < 0) {
+//           tielazermodel.visibility = 0;
+//           tielazermodel.dispose();
+//           Tielazermodels.splice(j, 1);
+//           tielazer.dispose();
+//           Tielazers.splice(i, 1);
+//         }
+//       });
+//     });
     for (var i = Blasts.length - 1; i >= 0; i--) {
       let specificblast = Blasts[i];
       if (Blasts[i].killtime < 0) {
