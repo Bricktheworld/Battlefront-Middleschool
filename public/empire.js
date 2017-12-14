@@ -278,6 +278,15 @@ var Play_Game_As_Imperial = function() {
     XWinglazers.forEach(function(xwinglazer, index_lazer) {
       xwinglazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
       xwinglazer.timeout -= 1;
+      XWinglazermodels.forEach(function(xwinglazermodel, j) {
+        if (xwinglazer.timeout < 0) {
+          xwinglazermodel.visibility = 0;
+          xwinglazermodel.dispose();
+          XWinglazermodels.splice(j, 1);
+          xwinglazer.dispose();
+          XWinglazers.splice(index_lazer, 1);
+        }
+      });
       Ties.forEach(function(tie, index_tie) {
         if (xwinglazer.intersectsMesh(tie.tie, false) && xwinglazer.timeout > 0) {
           if (xwinglazer.intersectsMesh(playerbox, false)) {
@@ -302,6 +311,15 @@ var Play_Game_As_Imperial = function() {
     Tielazers.forEach(function(tielazer, index_lazer) {
       tielazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
       tielazer.timeout -= 1;
+      Tielazermodels.forEach(function(tielazermodel, j) {
+        if (tielazer.timeout < 0) {
+          tielazermodel.visibility = 0;
+          tielazermodel.dispose();
+          Tielazermodels.splice(j, 1);
+          tielazer.dispose();
+          Tielazers.splice(index_lazer, 1);
+        }
+      });
       XWings.forEach(function(xwing, index_xwing) {
         if (tielazer.intersectsMesh(xwing.xwing, false) && tielazer.timeout > 0) {
           Tielazermodels[index_lazer].visibility = 0;
