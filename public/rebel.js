@@ -351,7 +351,7 @@ var Play_Game_As_Rebel = function() {
     } else {
       velocity = 0;
     }
-    if (keys.space) {
+    if (keys.space && alive === false) {
       socket.emit('rebel_shoot', data);
       keys.space = false;
     }

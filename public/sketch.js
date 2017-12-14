@@ -319,7 +319,7 @@ function JoinEmpire() {
 }
 
 function SetUsername(input) {
-  if (event.keyCode === 13 && playing === false && input.value != "") {
+  if (event.keyCode === 13 && playing === false && input.value !== "") {
     document.getElementById('UserNameField').style.zIndex = 900;
     username = input.value;
     let data = {
