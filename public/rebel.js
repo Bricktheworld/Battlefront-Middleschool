@@ -124,7 +124,7 @@ var Play_Game_As_Rebel = function() {
   });
   socket.on('new_empire_shot', function(data) {
     var place = Tielazers.length + 1;
-    var newlazerthing = BABYLON.Mesh.CreateBox("Tielazers[" + place + "]", 10, scene);
+    var newlazerthing = BABYLON.Mesh.CreateBox("Tielazers[" + place + "]", 20, scene);
     newlazerthing.visibility = 0;
     newlazerthing.position.x = data.x
     newlazerthing.position.y = data.y
