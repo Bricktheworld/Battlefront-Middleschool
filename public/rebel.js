@@ -14,7 +14,7 @@ var Play_Game_As_Rebel = function() {
   camerabox.visibility = 0;
   camerabox.setPivotMatrix(BABYLON.Matrix.Translation(0, 5, -13));
   lagbox.visibility = 0;
-  camerabox.parent = playerbox;
+  //camerabox.parent = playerbox;
   playerbox.visibility = 0;
   playerbox.position.z = -100;
   health = 100;

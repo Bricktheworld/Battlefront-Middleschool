@@ -14,7 +14,7 @@ var Play_Game_As_Imperial = function() {
   camerabox.visibility = 0;
   camerabox.setPivotMatrix(BABYLON.Matrix.Translation(0, 5, -13));
   lagbox.visibility = 0;
-  camerabox.parent = playerbox;
+  //camerabox.parent = playerbox;
   playerbox.visibility = 0;
   playerbox.position.z = -100;
   health = 100;
@@ -348,9 +348,9 @@ var Play_Game_As_Imperial = function() {
       controlY: MouseY,
       username: username
     };
-      socket.emit('update_empire', data);
-      if (alive === false) {
-        velocity = 0;
+    socket.emit('update_empire', data);
+    if (alive === false) {
+      velocity = 0;
     }
     if (keys.space && alive) {
       socket.emit('empire_shoot', data);
