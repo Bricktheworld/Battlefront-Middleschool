@@ -61,6 +61,14 @@ var sketch = function(p5) {
       p5.fill(255);
       p5.text(killed + " eliminated you", p5.windowWidth / 2, p5.windowHeight / 2)
     }
+    p5.stroke(190);
+    p5.strokeWeight(1);
+    p5.fill(190);
+    p5.ellipse(p5.windowWidth / 2, p5.windowHeight / 2, 2, 2);
+    p5.line(p5.windowWidth / 2 + 20, p5.windowHeight / 2, p5.windowWidth / 2 + 60, p5.windowHeight / 2);
+    p5.line(p5.windowWidth / 2 - 20, p5.windowHeight / 2, p5.windowWidth / 2 - 60, p5.windowHeight / 2);
+    p5.line(p5.windowWidth / 2, p5.windowHeight / 2 - 20, p5.windowWidth / 2, p5.windowHeight / 2 - 60);
+    p5.line(p5.windowWidth / 2, p5.windowHeight / 2 + 20, p5.windowWidth / 2, p5.windowHeight / 2 + 60);
   };
   eliminate = function(user, y, index) {
     if (index === 0) {

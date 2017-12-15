@@ -348,10 +348,9 @@ var Play_Game_As_Imperial = function() {
       controlY: MouseY,
       username: username
     };
-    if (alive) {
       socket.emit('update_empire', data);
-    } else {
-      velocity = 0;
+      if (alive === false) {
+        velocity = 0;
     }
     if (keys.space && alive) {
       socket.emit('empire_shoot', data);

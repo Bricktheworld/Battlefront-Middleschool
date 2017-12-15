@@ -346,9 +346,8 @@ var Play_Game_As_Rebel = function() {
       controlY: MouseY,
       username: username
     };
-    if (alive) {
       socket.emit('update_rebel', data);
-    } else {
+    if (alive === false) {
       velocity = 0;
     }
     if (keys.space && alive) {
