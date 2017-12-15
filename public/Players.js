@@ -19,7 +19,8 @@ function XWing(i, x, y, z, rotx, roty, rotz, usernm, id) {
   }
   if (id == selfid) {
     this.pin.alpha = 0;
-    this.xwingmodel.visibility = 0;
+    camerabox.parent = this.xwing;
+//     this.xwingmodel.visibility = 0;
   } else {
     this.pin.alpha = 1;
   }
@@ -64,7 +65,8 @@ function Tie(i, x, y, z, rotx, roty, rotz, usernm, id) {
   }
   if (id === selfid) {
     this.pin.alpha = 0;
-    this.tiemodel.visibility = 0;
+    camerabox.parent = this.xwing;
+//     this.tiemodel.visibility = 0;
   } else {
     this.pin.alpha = 1;
   }
