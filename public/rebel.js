@@ -20,7 +20,7 @@ var Play_Game_As_Rebel = function() {
   health = 100;
   var velocity = 2;
   var selfmodel = xwingorig.clone('selfmodel');
-  selfmodel.visibility = 1;
+  selfmodel.visibility = 0;
   selfmodel.parent = playerbox;
 
   //making the actual camera

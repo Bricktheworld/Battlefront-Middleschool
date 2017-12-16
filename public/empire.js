@@ -21,7 +21,7 @@ var Play_Game_As_Imperial = function() {
   alive = true;
   var velocity = 2;
   var selfmodel = tieorig.clone('selfmodel');
-  selfmodel.visibility = 1;
+  selfmodel.visibility = 0;
   selfmodel.parent = playerbox;
 
   //making the actual camera
