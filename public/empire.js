@@ -221,8 +221,22 @@ var Play_Game_As_Imperial = function() {
     //   socket.emit('dead_imperial', "fuck");
     // }
   }, 1000);
-
-  setInterval(function() {
+  // Register a render loop to repeatedly render the scene
+  engine.runRenderLoop(function() {
+    if (keys.left) { //A
+      MouseX = -300;
+    } else if (keys.right) { //D
+      MouseX = 300;
+    } else {
+      MouseX = 0;
+    }
+    if (keys.up) { //W
+      MouseY = -200;
+    } else if (keys.down) { //S
+      MouseY = 200;
+    } else {
+      MouseY = 0;
+    }
     //handling position of rebels
     socket.on('heartbeat_rebel', function(data) {
       for (var i = data.length - 1; i >= 0; i--) {
@@ -240,24 +254,6 @@ var Play_Game_As_Imperial = function() {
         Ties[i].setposition(newposition, newrotation);
       }
     });
-  }, 1);
-  // Register a render loop to repeatedly render the scene
-  engine.runRenderLoop(function() {
-    if (keys.left) { //A
-      MouseX = -300;
-    } else if (keys.right) { //D
-      MouseX = 300;
-    } else {
-      MouseX = 0;
-    }
-    if (keys.up) { //W
-      MouseY = -200;
-    } else if (keys.down) { //S
-      MouseY = 200;
-    } else {
-      MouseY = 0;
-    }
-
     scene.getMeshByName("playerbox").addRotation(MouseY * 0.00007, 0, 0);
     scene.getMeshByName("playerbox").addRotation(0, MouseX * 0.00007, 0);
 

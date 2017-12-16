@@ -174,28 +174,28 @@ var Play_Game_As_Rebel = function() {
     selfkills.unshift(username);
   });
   setInterval(function() {
-//     XWinglazers.forEach(function(xwinglazer, i) {
-//       XWinglazermodels.forEach(function(xwinglazermodel, j) {
-//         if (xwinglazer.timeout < 0) {
-//           xwinglazermodel.visibility = 0;
-//           xwinglazermodel.dispose();
-//           XWinglazermodels.splice(j, 1);
-//           xwinglazer.dispose();
-//           XWinglazers.splice(i, 1);
-//         }
-//       });
-//     });
-//     Tielazers.forEach(function(tielazer, i) {
-//       Tielazermodels.forEach(function(tielazermodel, j) {
-//         if (tielazer.timeout < 0) {
-//           tielazermodel.visibility = 0;
-//           tielazermodel.dispose();
-//           Tielazermodels.splice(j, 1);
-//           tielazer.dispose();
-//           Tielazers.splice(i, 1);
-//         }
-//       });
-//     });
+    //     XWinglazers.forEach(function(xwinglazer, i) {
+    //       XWinglazermodels.forEach(function(xwinglazermodel, j) {
+    //         if (xwinglazer.timeout < 0) {
+    //           xwinglazermodel.visibility = 0;
+    //           xwinglazermodel.dispose();
+    //           XWinglazermodels.splice(j, 1);
+    //           xwinglazer.dispose();
+    //           XWinglazers.splice(i, 1);
+    //         }
+    //       });
+    //     });
+    //     Tielazers.forEach(function(tielazer, i) {
+    //       Tielazermodels.forEach(function(tielazermodel, j) {
+    //         if (tielazer.timeout < 0) {
+    //           tielazermodel.visibility = 0;
+    //           tielazermodel.dispose();
+    //           Tielazermodels.splice(j, 1);
+    //           tielazer.dispose();
+    //           Tielazers.splice(i, 1);
+    //         }
+    //       });
+    //     });
 
     for (var i = Blasts.length - 1; i >= 0; i--) {
       let specificblast = Blasts[i];
@@ -221,7 +221,22 @@ var Play_Game_As_Rebel = function() {
     //   socket.emit('dead_rebel', "fuck");
     // }
   }, 1000);
-  setInterval(function() {
+  // Register a render loop to repeatedly render the scene
+  engine.runRenderLoop(function() {
+    if (keys.left) { //A
+      MouseX = -300;
+    } else if (keys.right) { //D
+      MouseX = 300;
+    } else {
+      MouseX = 0;
+    }
+    if (keys.up) { //W
+      MouseY = -200;
+    } else if (keys.down) { //S
+      MouseY = 200;
+    } else {
+      MouseY = 0;
+    }
     //handling position of rebels
     socket.on('heartbeat_rebel', function(data) {
       for (var i = data.length - 1; i >= 0; i--) {
@@ -239,24 +254,6 @@ var Play_Game_As_Rebel = function() {
         Ties[i].setposition(newposition, newrotation);
       }
     });
-  }, 1);
-  // Register a render loop to repeatedly render the scene
-  engine.runRenderLoop(function() {
-    if (keys.left) { //A
-      MouseX = -300;
-    } else if (keys.right) { //D
-      MouseX = 300;
-    } else {
-      MouseX = 0;
-    }
-    if (keys.up) { //W
-      MouseY = -200;
-    } else if (keys.down) { //S
-      MouseY = 200;
-    } else {
-      MouseY = 0;
-    }
-
     scene.getMeshByName("playerbox").addRotation(MouseY * 0.00007, 0, 0);
     scene.getMeshByName("playerbox").addRotation(0, MouseX * 0.00007, 0);
 
@@ -346,7 +343,7 @@ var Play_Game_As_Rebel = function() {
       controlY: MouseY,
       username: username
     };
-      socket.emit('update_rebel', data);
+    socket.emit('update_rebel', data);
     if (alive === false) {
       velocity = 0;
     }
