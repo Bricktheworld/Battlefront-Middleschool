@@ -65,7 +65,7 @@ function Tie(i, x, y, z, rotx, roty, rotz, usernm, id) {
   }
   if (id === selfid) {
     this.pin.alpha = 0;
-    camerabox.parent = this.xwing;
+    camerabox.parent = this.tie;
 //     this.tiemodel.visibility = 0;
   } else {
     this.pin.alpha = 1;
