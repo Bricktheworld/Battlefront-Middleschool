@@ -107,7 +107,38 @@ var Play_Game_As_Rebel = function() {
     var place = Ties.length;
     Ties.push(new Tie(place, 0, 0, 0, 0, 0, 0, data.username, data.id));
   });
-
+  socket.on('new_rebel_shot', function(data) {
+    var place = XWinglazers.length + 1;
+    var newlazerthing = BABYLON.Mesh.CreateBox("XWinglazers[" + place + "]", 10, scene);
+    newlazerthing.visibility = 0;
+    newlazerthing.position.x = data.x
+    newlazerthing.position.y = data.y
+    newlazerthing.position.z = data.z
+    newlazerthing.rotation.x = data.rotationx
+    newlazerthing.rotation.y = data.rotationy
+    newlazerthing.rotation.z = data.rotationz
+    newlazerthing.timeout = 60;
+    newlazerthing.id = data.id;
+    newlazerthing.username = data.username;
+    XWinglazers.push(newlazerthing);
+    makeXWingLazer(place, newlazerthing);
+  });
+  socket.on('new_empire_shot', function(data) {
+    var place = Tielazers.length + 1;
+    var newlazerthing = BABYLON.Mesh.CreateBox("Tielazers[" + place + "]", 20, scene);
+    newlazerthing.visibility = 0;
+    newlazerthing.position.x = data.x
+    newlazerthing.position.y = data.y
+    newlazerthing.position.z = data.z
+    newlazerthing.rotation.x = data.rotationx
+    newlazerthing.rotation.y = data.rotationy
+    newlazerthing.rotation.z = data.rotationz
+    newlazerthing.timeout = 60;
+    newlazerthing.id = data.id;
+    newlazerthing.username = data.username;
+    Tielazers.push(newlazerthing);
+    makeTieLazer(place, newlazerthing);
+  });
 
 
   //handle leaving players
@@ -143,28 +174,28 @@ var Play_Game_As_Rebel = function() {
     selfkills.unshift(username);
   });
   setInterval(function() {
-    //     XWinglazers.forEach(function(xwinglazer, i) {
-    //       XWinglazermodels.forEach(function(xwinglazermodel, j) {
-    //         if (xwinglazer.timeout < 0) {
-    //           xwinglazermodel.visibility = 0;
-    //           xwinglazermodel.dispose();
-    //           XWinglazermodels.splice(j, 1);
-    //           xwinglazer.dispose();
-    //           XWinglazers.splice(i, 1);
-    //         }
-    //       });
-    //     });
-    //     Tielazers.forEach(function(tielazer, i) {
-    //       Tielazermodels.forEach(function(tielazermodel, j) {
-    //         if (tielazer.timeout < 0) {
-    //           tielazermodel.visibility = 0;
-    //           tielazermodel.dispose();
-    //           Tielazermodels.splice(j, 1);
-    //           tielazer.dispose();
-    //           Tielazers.splice(i, 1);
-    //         }
-    //       });
-    //     });
+//     XWinglazers.forEach(function(xwinglazer, i) {
+//       XWinglazermodels.forEach(function(xwinglazermodel, j) {
+//         if (xwinglazer.timeout < 0) {
+//           xwinglazermodel.visibility = 0;
+//           xwinglazermodel.dispose();
+//           XWinglazermodels.splice(j, 1);
+//           xwinglazer.dispose();
+//           XWinglazers.splice(i, 1);
+//         }
+//       });
+//     });
+//     Tielazers.forEach(function(tielazer, i) {
+//       Tielazermodels.forEach(function(tielazermodel, j) {
+//         if (tielazer.timeout < 0) {
+//           tielazermodel.visibility = 0;
+//           tielazermodel.dispose();
+//           Tielazermodels.splice(j, 1);
+//           tielazer.dispose();
+//           Tielazers.splice(i, 1);
+//         }
+//       });
+//     });
 
     for (var i = Blasts.length - 1; i >= 0; i--) {
       let specificblast = Blasts[i];
@@ -190,6 +221,25 @@ var Play_Game_As_Rebel = function() {
     //   socket.emit('dead_rebel', "fuck");
     // }
   }, 1000);
+  setInterval(function() {
+    //handling position of rebels
+    socket.on('heartbeat_rebel', function(data) {
+      for (var i = data.length - 1; i >= 0; i--) {
+        let newposition = new BABYLON.Vector3(data[i].x, data[i].y, data[i].z);
+        let newrotation = new BABYLON.Vector3(data[i].rotationx, data[i].rotationy, data[i].rotationz);
+        XWings[i].setposition(newposition, newrotation);
+      }
+    });
+
+    //handling position of rebels
+    socket.on('heartbeat_empire', function(data) {
+      for (var i = data.length - 1; i >= 0; i--) {
+        let newposition = new BABYLON.Vector3(data[i].x, data[i].y, data[i].z);
+        let newrotation = new BABYLON.Vector3(data[i].rotationx, data[i].rotationy, data[i].rotationz);
+        Ties[i].setposition(newposition, newrotation);
+      }
+    });
+  }, 1);
   // Register a render loop to repeatedly render the scene
   engine.runRenderLoop(function() {
     if (keys.left) { //A
@@ -224,38 +274,7 @@ var Play_Game_As_Rebel = function() {
     for (var i = Ties.length - 1; i >= 0; i--) {
       Ties[i].update();
     }
-    socket.on('new_rebel_shot', function(data) {
-      var place = XWinglazers.length + 1;
-      var newlazerthing = BABYLON.Mesh.CreateBox("XWinglazers[" + place + "]", 10, scene);
-      newlazerthing.visibility = 0;
-      newlazerthing.position.x = data.x
-      newlazerthing.position.y = data.y
-      newlazerthing.position.z = data.z
-      newlazerthing.rotation.x = data.rotationx
-      newlazerthing.rotation.y = data.rotationy
-      newlazerthing.rotation.z = data.rotationz
-      newlazerthing.timeout = 60;
-      newlazerthing.id = data.id;
-      newlazerthing.username = data.username;
-      XWinglazers.push(newlazerthing);
-      makeXWingLazer(place, newlazerthing);
-    });
-    socket.on('new_empire_shot', function(data) {
-      var place = Tielazers.length + 1;
-      var newlazerthing = BABYLON.Mesh.CreateBox("Tielazers[" + place + "]", 20, scene);
-      newlazerthing.visibility = 0;
-      newlazerthing.position.x = data.x
-      newlazerthing.position.y = data.y
-      newlazerthing.position.z = data.z
-      newlazerthing.rotation.x = data.rotationx
-      newlazerthing.rotation.y = data.rotationy
-      newlazerthing.rotation.z = data.rotationz
-      newlazerthing.timeout = 60;
-      newlazerthing.id = data.id;
-      newlazerthing.username = data.username;
-      Tielazers.push(newlazerthing);
-      makeTieLazer(place, newlazerthing);
-    });
+
     XWinglazers.forEach(function(xwinglazer, index_lazer) {
       xwinglazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
       xwinglazer.timeout -= 1;
@@ -314,23 +333,7 @@ var Play_Game_As_Rebel = function() {
     for (var i = Blasts.length - 1; i >= 0; i--) {
       Blasts[i].killtime -= 1;
     }
-    //handling position of rebels
-    socket.on('heartbeat_rebel', function(data) {
-      for (var i = data.length - 1; i >= 0; i--) {
-        let newposition = new BABYLON.Vector3(data[i].x, data[i].y, data[i].z);
-        let newrotation = new BABYLON.Vector3(data[i].rotationx, data[i].rotationy, data[i].rotationz);
-        XWings[i].setposition(newposition, newrotation);
-      }
-    });
 
-    //handling position of rebels
-    socket.on('heartbeat_empire', function(data) {
-      for (var i = data.length - 1; i >= 0; i--) {
-        let newposition = new BABYLON.Vector3(data[i].x, data[i].y, data[i].z);
-        let newrotation = new BABYLON.Vector3(data[i].rotationx, data[i].rotationy, data[i].rotationz);
-        Ties[i].setposition(newposition, newrotation);
-      }
-    });
     var data = {
       x: playerbox.position.x,
       y: playerbox.position.y,
@@ -343,7 +346,7 @@ var Play_Game_As_Rebel = function() {
       controlY: MouseY,
       username: username
     };
-    socket.emit('update_rebel', data);
+      socket.emit('update_rebel', data);
     if (alive === false) {
       velocity = 0;
     }
