@@ -30,10 +30,10 @@ function XWing(i, x, y, z, rotx, roty, rotz, usernm, id) {
 }
 XWing.prototype.update = function() {
   this.xwing.translate(BABYLON.Axis.Z, 2, BABYLON.Space.LOCAL);
-  if (this.pin.top > "0px") {
+  if (this.pin.top + "30px" > "0px") {
     console.log("Off bottom");
   }
-  console.log(this.pin.top);
+  console.log(this.pin.top + "30px");
 }
 XWing.prototype.setposition = function(newposition, newrotation) {
   this.xwing.position = newposition;
