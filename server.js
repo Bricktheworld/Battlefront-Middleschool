@@ -63,7 +63,6 @@ io.sockets.on('connection', function(socket) {
       //everyone else
       socket.broadcast.emit('new imperial', newtieplayer);
       Ties.push(newtieplayer);
-      var id = socket.id;
     }
     socket.emit('entergame', "Welcome!");
     socket.emit('ID', socket.id);
@@ -72,7 +71,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('update_rebel', function(data) {
       var xwing;
       for (var i = XWings.length - 1; i >= 0; i--) {
-        if (data.id == XWings[i].id) {
+        if (XWings[i].id == socket.id) {
           xwing = XWings[i];
           xwing.x = data.x;
           xwing.y = data.y;
@@ -80,7 +79,6 @@ io.sockets.on('connection', function(socket) {
           xwing.rotationx = data.rotationx;
           xwing.rotationy = data.rotationy;
           xwing.rotationz = data.rotationz;
-
         }
       }
 
@@ -88,7 +86,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('update_empire', function(data) {
       var tie;
       for (var i = Ties.length - 1; i >= 0; i--) {
-        if (data.id == Ties[i].id) {
+        if (Ties[i].id == socket.id) {
           tie = Ties[i];
           tie.x = data.x;
           tie.y = data.y;
