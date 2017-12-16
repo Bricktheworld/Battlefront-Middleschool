@@ -291,6 +291,7 @@ var Play_Game_As_Imperial = function() {
             if (health <= 0) {
               selfmodel.visibility = 0;
               killed = xwinglazer.username;
+              camerabox.parent = playerbox;
               socket.emit('dead_imperial', xwinglazer.id);
               alive = false;
             }

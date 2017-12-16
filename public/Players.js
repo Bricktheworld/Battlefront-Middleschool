@@ -20,7 +20,7 @@ function XWing(i, x, y, z, rotx, roty, rotz, usernm, id) {
   if (id == selfid) {
     this.pin.alpha = 0;
     camerabox.parent = this.xwing;
-//     this.xwingmodel.visibility = 0;
+    //     this.xwingmodel.visibility = 0;
   } else {
     this.pin.alpha = 1;
   }
@@ -30,6 +30,10 @@ function XWing(i, x, y, z, rotx, roty, rotz, usernm, id) {
 }
 XWing.prototype.update = function() {
   this.xwing.translate(BABYLON.Axis.Z, 2, BABYLON.Space.LOCAL);
+  if (this.pin.top > "0px") {
+    console.log("Off bottom");
+  }
+  console.log(this.pin.top);
 }
 XWing.prototype.setposition = function(newposition, newrotation) {
   this.xwing.position = newposition;
@@ -42,6 +46,7 @@ XWing.prototype.destroy = function() {
   this.pin.alpha = 0;
   this.xwingmodel.dispose();
   this.xwing.dispose();
+  camerabox.parent = playerbox;
 }
 
 function Tie(i, x, y, z, rotx, roty, rotz, usernm, id) {
@@ -66,7 +71,7 @@ function Tie(i, x, y, z, rotx, roty, rotz, usernm, id) {
   if (id === selfid) {
     this.pin.alpha = 0;
     camerabox.parent = this.tie;
-//     this.tiemodel.visibility = 0;
+    //     this.tiemodel.visibility = 0;
   } else {
     this.pin.alpha = 1;
   }
@@ -89,4 +94,5 @@ Tie.prototype.destroy = function() {
   this.pin.alpha = 0;
   this.tiemodel.dispose();
   this.tie.dispose();
+  camerabox.parent = playerbox;
 }

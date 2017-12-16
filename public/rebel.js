@@ -311,6 +311,7 @@ var Play_Game_As_Rebel = function() {
             if (health <= 0) {
               selfmodel.visibility = 0;
               killed = tielazer.username;
+              camerabox.parent = playerbox;
               socket.emit('dead_rebel', tielazer.id);
               alive = false;
             }
