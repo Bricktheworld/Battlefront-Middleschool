@@ -1,10 +1,10 @@
 var sketch = function(p5) {
-
   p5.setup = function() {
     let canvas = p5.createCanvas(p5.windowWidth, p5.windowHeight);
     canvas.position = (200, 200);
     canvas.parent('sketch-holder');
-    p5.angleMode(p5.DEGREES)
+    p5.angleMode(p5.DEGREES);
+
   };
 
   p5.draw = function() {
@@ -13,6 +13,13 @@ var sketch = function(p5) {
       p5.background(0);
     } else {
       p5.background(0, 0);
+      if (team == "rebel") {
+        trackercolorrebel = p5.color(0, 0, 255);
+        trackercolorempire = p5.color(255, 0, 0);
+      } else if (team == "empire") {
+        trackercolorempire = p5.color(0, 0, 255);
+        trackercolorrebel = p5.color(255, 0, 0);
+      }
     }
     health = p5.constrain(health, 0, 100);
     p5.fill(50, 150);
@@ -69,6 +76,74 @@ var sketch = function(p5) {
     p5.line(p5.windowWidth / 2 - 20, p5.windowHeight / 2, p5.windowWidth / 2 - 60, p5.windowHeight / 2);
     p5.line(p5.windowWidth / 2, p5.windowHeight / 2 - 20, p5.windowWidth / 2, p5.windowHeight / 2 - 60);
     p5.line(p5.windowWidth / 2, p5.windowHeight / 2 + 20, p5.windowWidth / 2, p5.windowHeight / 2 + 60);
+    for (var i = XWings.length - 1; i >= 0; i--) {
+      let trackerleft = p5.constrain(parseInt(XWings[i].pin.left), -p5.windowWidth / 2, p5.windowWidth / 2);
+      let trackertop = p5.constrain(parseInt(XWings[i].pin.top), -p5.windowHeight / 2, p5.windowHeight / 2);
+      if (XWings[i].tracking.offtop) {
+        p5.push();
+        p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
+        p5.fill(trackercolorrebel);
+        p5.noStroke();
+        p5.ellipse(trackerleft, -p5.windowHeight / 2, 20, 20);
+        p5.pop();
+      } else if (XWings[i].tracking.offbottom) {
+        p5.push();
+        p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
+        p5.fill(trackercolorrebel);
+        p5.noStroke();
+        p5.ellipse(trackerleft, p5.windowHeight / 2, 20, 20);
+        p5.pop();
+      }
+      if (XWings[i].tracking.offleft) {
+        p5.push();
+        p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
+        p5.fill(trackercolorrebel);
+        p5.noStroke();
+        p5.ellipse(-p5.windowWidth / 2, trackertop, 20, 20);
+        p5.pop();
+      } else if (XWings[i].tracking.offright) {
+        p5.push();
+        p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
+        p5.fill(trackercolorrebel);
+        p5.noStroke();
+        p5.ellipse(p5.windowWidth / 2, trackertop, 20, 20);
+        p5.pop();
+      }
+    }
+    for (var i = Ties.length - 1; i >= 0; i--) {
+      let trackerleft = p5.constrain(parseInt(Ties[i].pin.left), -p5.windowWidth / 2, p5.windowWidth / 2);
+      let trackertop = p5.constrain(parseInt(Ties[i].pin.top), -p5.windowHeight / 2, p5.windowHeight / 2);
+      if (Ties[i].tracking.offtop) {
+        p5.push();
+        p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
+        p5.fill(trackercolorempire);
+        p5.noStroke();
+        p5.ellipse(trackerleft, -p5.windowHeight / 2, 20, 20);
+        p5.pop();
+      } else if (Ties[i].tracking.offbottom) {
+        p5.push();
+        p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
+        p5.fill(trackercolorempire);
+        p5.noStroke();
+        p5.ellipse(trackerleft, p5.windowHeight / 2, 20, 20);
+        p5.pop();
+      }
+      if (Ties[i].tracking.offleft) {
+        p5.push();
+        p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
+        p5.fill(trackercolorempire);
+        p5.noStroke();
+        p5.ellipse(-p5.windowWidth / 2, trackertop, 20, 20);
+        p5.pop();
+      } else if (Ties[i].tracking.offright) {
+        p5.push();
+        p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
+        p5.fill(trackercolorempire);
+        p5.noStroke();
+        p5.ellipse(p5.windowWidth / 2, trackertop, 20, 20);
+        p5.pop();
+      }
+    }
   };
   eliminate = function(user, y, index) {
     if (index === 0) {

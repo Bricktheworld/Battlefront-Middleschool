@@ -9,6 +9,7 @@ function XWing(i, x, y, z, rotx, roty, rotz, usernm, id) {
   this.xwingmodel.parent = this.xwing;
   this.xwingmodel.visibility = 1;
   this.username = usernm;
+  this.self = false;
   this.pin = new BABYLON.GUI.TextBlock();
   this.pin.text = this.username;
   this.pin.fontSize = 10;
@@ -19,20 +20,44 @@ function XWing(i, x, y, z, rotx, roty, rotz, usernm, id) {
   }
   if (id == selfid) {
     this.pin.alpha = 0;
-    camerabox.parent = this.xwing;
+    this.self = true;
+    //     camerabox.parent = this.xwing;
   } else {
     this.pin.alpha = 1;
   }
   advancedTexture.addControl(this.pin);
   this.pin.linkWithMesh(this.xwing);
   this.pin.linkOffsetY = -30;
+  this.tracking = {
+    offtop: false,
+    offbottom: false,
+    offright: false,
+    offleft: false
+  }
 }
 XWing.prototype.update = function() {
   this.xwing.translate(BABYLON.Axis.Z, 2, BABYLON.Space.LOCAL);
-  if (this.pin.top < "0px") {
-    console.log("Off bottom");
+  if (parseInt(this.pin.top, 10) < -windowHalfY) {
+    this.tracking.offtop = true;
+  } else if (parseInt(this.pin.top, 10) > windowHalfY) {
+    this.tracking.offbottom = true;
+  } else {
+    this.tracking.offtop = false;
+    this.tracking.offbottom = false;
   }
-//   console.log(this.pin.top + "30px");
+  if (parseInt(this.pin.left, 10) > windowHalfX) {
+    this.tracking.offright = true;
+  } else if (parseInt(this.pin.left, 10) < -windowHalfX) {
+    this.tracking.offleft = true;
+  } else {
+    this.tracking.offright = false;
+    this.tracking.offleft = false;
+  }
+
+  if (this.self) {
+    camerabox.position = this.xwing.position;
+    camerabox.rotation = playerbox.rotation;
+  }
 }
 XWing.prototype.setposition = function(newposition, newrotation) {
   this.xwing.position = newposition;
@@ -45,7 +70,7 @@ XWing.prototype.destroy = function() {
   this.pin.alpha = 0;
   this.xwingmodel.dispose();
   this.xwing.dispose();
-//   camerabox.parent = playerbox;
+  //   camerabox.parent = playerbox;
 }
 
 function Tie(i, x, y, z, rotx, roty, rotz, usernm, id) {
@@ -59,6 +84,7 @@ function Tie(i, x, y, z, rotx, roty, rotz, usernm, id) {
   this.tiemodel.parent = this.tie;
   this.tiemodel.visibility = 1;
   this.username = usernm;
+  this.self = false;
   this.pin = new BABYLON.GUI.TextBlock();
   this.pin.text = this.username;
   this.pin.fontSize = 10;
@@ -69,17 +95,44 @@ function Tie(i, x, y, z, rotx, roty, rotz, usernm, id) {
   }
   if (id === selfid) {
     this.pin.alpha = 0;
-    camerabox.parent = this.tie;
-    //     this.tiemodel.visibility = 0;
+    this.self = true;
+    //     camerabox.parent = this.tie;
   } else {
     this.pin.alpha = 1;
   }
   advancedTexture.addControl(this.pin);
   this.pin.linkWithMesh(this.tie);
   this.pin.linkOffsetY = -30;
+  this.tracking = {
+    offtop: false,
+    offbottom: false,
+    offright: false,
+    offleft: false
+  }
 }
 Tie.prototype.update = function() {
   this.tie.translate(BABYLON.Axis.Z, 2, BABYLON.Space.LOCAL);
+  if (parseInt(this.pin.top, 10) < -windowHalfY) {
+    this.tracking.offtop = true;
+  } else if (parseInt(this.pin.top, 10) > windowHalfY) {
+    this.tracking.offbottom = true;
+  } else {
+    this.tracking.offtop = false;
+    this.tracking.offbottom = false;
+  }
+  if (parseInt(this.pin.left, 10) > windowHalfX) {
+    this.tracking.offright = true;
+  } else if (parseInt(this.pin.left, 10) < -windowHalfX) {
+    this.tracking.offleft = true;
+  } else {
+    this.tracking.offright = false;
+    this.tracking.offleft = false;
+  }
+
+  if (this.self) {
+    camerabox.position = this.tie.position;
+    camerabox.rotation = playerbox.rotation;
+  }
 }
 Tie.prototype.setposition = function(newposition, newrotation) {
   this.tie.position = newposition;
@@ -93,5 +146,4 @@ Tie.prototype.destroy = function() {
   this.pin.alpha = 0;
   this.tiemodel.dispose();
   this.tie.dispose();
-//   camerabox.parent = playerbox;
 }

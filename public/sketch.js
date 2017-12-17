@@ -40,6 +40,8 @@ var keys = {
   space: false
 }
 var loaded = false;
+var trackercolorrebel;
+var trackercolorempire;
 
 // -------------------------------------------Start Writing Important Stuff-------------------------------------------------------\\
 var canvas = document.getElementById('canvas');
