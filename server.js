@@ -38,7 +38,7 @@ function listen() {
 }
 var io = require('socket.io')(server);
 
-setInterval(heartbeat, 1000/60);
+setInterval(heartbeat, 1000 / 60);
 
 function heartbeat() {
   io.sockets.emit('heartbeat_rebel', XWings);
@@ -54,12 +54,15 @@ io.sockets.on('connection', function(socket) {
     console.log("We have a new client: " + socket.username);
     if (data.team == "rebel") {
       var newxwingplayer = new XWing(socket.id, 0, 0, 0, 0, 0, 0, data.username);
+      socket.player = newxwingplayer;
       //everyone else
       socket.broadcast.emit('new rebel', newxwingplayer);
       XWings.push(newxwingplayer);
       var id = socket.id;
     } else if (data.team == "empire") {
       var newtieplayer = new Tie(socket.id, 0, 0, 0, 0, 0, 0, data.username);
+      socket.player = newtieplayer;
+
       //everyone else
       socket.broadcast.emit('new imperial', newtieplayer);
       Ties.push(newtieplayer);
@@ -70,32 +73,46 @@ io.sockets.on('connection', function(socket) {
     socket.emit('Ties', Ties);
     socket.on('update_rebel', function(data) {
       var xwing;
-      for (var i = XWings.length - 1; i >= 0; i--) {
-        if (XWings[i].id == socket.id) {
-          xwing = XWings[i];
-          xwing.x = data.x;
-          xwing.y = data.y;
-          xwing.z = data.z;
-          xwing.rotationx = data.rotationx;
-          xwing.rotationy = data.rotationy;
-          xwing.rotationz = data.rotationz;
-        }
-      }
+      //       for (var i = XWings.length - 1; i >= 0; i--) {
+      //         if (XWings[i].id == socket.id) {
+      //           xwing = XWings[i];
+      //           xwing.x = data.x;
+      //           xwing.y = data.y;
+      //           xwing.z = data.z;
+      //           xwing.rotationx = data.rotationx;
+      //           xwing.rotationy = data.rotationy;
+      //           xwing.rotationz = data.rotationz;
+      //         }
+      //       }
+      xwing = socket.player;
+      xwing.x = data.x;
+      xwing.y = data.y;
+      xwing.z = data.z;
+      xwing.rotationx = data.rotationx;
+      xwing.rotationy = data.rotationy;
+      xwing.rotationz = data.rotationz;
 
     });
     socket.on('update_empire', function(data) {
       var tie;
-      for (var i = Ties.length - 1; i >= 0; i--) {
-        if (Ties[i].id == socket.id) {
-          tie = Ties[i];
-          tie.x = data.x;
-          tie.y = data.y;
-          tie.z = data.z;
-          tie.rotationx = data.rotationx;
-          tie.rotationy = data.rotationy;
-          tie.rotationz = data.rotationz;
-        }
-      }
+      //       for (var i = Ties.length - 1; i >= 0; i--) {
+      //         if (Ties[i].id == socket.id) {
+      //           tie = Ties[i];
+      //           tie.x = data.x;
+      //           tie.y = data.y;
+      //           tie.z = data.z;
+      //           tie.rotationx = data.rotationx;
+      //           tie.rotationy = data.rotationy;
+      //           tie.rotationz = data.rotationz;
+      //         }
+      //       }
+      tie = socket.player;
+      tie.x = data.x;
+      tie.y = data.y;
+      tie.z = data.z;
+      tie.rotationx = data.rotationx;
+      tie.rotationy = data.rotationy;
+      tie.rotationz = data.rotationz;
 
     });
     socket.on('rebel_shoot', function(data) {
