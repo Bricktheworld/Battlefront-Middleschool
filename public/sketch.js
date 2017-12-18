@@ -6,13 +6,11 @@ var allmeshes = [];
 var xwingorig;
 var xwinglazerorig;
 var XWinglazers = [];
-var XWinglazermodels = []
 var XWings = [];
 var XWing_Engine_Sound;
 var tieorig;
 var tielazerorig;
 var Tielazers = [];
-var Tielazermodels = [];
 var Ties = [];
 var Blasts = [];
 var selfkills = [];

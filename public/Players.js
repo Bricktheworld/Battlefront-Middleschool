@@ -147,3 +147,70 @@ Tie.prototype.destroy = function() {
   this.tiemodel.dispose();
   this.tie.dispose();
 }
+
+function XWinglazer(x, y, z, rotx, roty, rotz, id, username) {
+  this.lazer = BABYLON.Mesh.CreateBox("XWinglazer", 10, scene);
+  this.lazer.visibility = 0;
+  this.lazer.position.x = x
+  this.lazer.position.y = y
+  this.lazer.position.z = z
+  this.lazer.rotation.x = rotx
+  this.lazer.rotation.y = roty
+  this.lazer.rotation.z = rotz
+  this.timeout = 60;
+  this.id = id;
+  this.username = username;
+  this.model = xwinglazerorig.clone('XWinglazer');
+  this.model.visibility = 1;
+  this.model.parent = this.lazer;
+}
+XWinglazer.prototype.update = function() {
+  this.lazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
+  this.timeout -= 1;
+}
+
+XWinglazer.prototype.check = function() {
+  if (this.timeout <= 0) {
+    return true
+  } else {
+    return false
+  }
+}
+XWinglazer.prototype.destroy = function() {
+  this.lazer.dispose();
+  this.model.visibility = 0;
+  this.model.dispose();
+}
+function Tielazer(x, y, z, rotx, roty, rotz, id, username) {
+  this.lazer = BABYLON.Mesh.CreateBox("Tielazer", 20, scene);
+  this.lazer.visibility = 0;
+  this.lazer.position.x = x
+  this.lazer.position.y = y
+  this.lazer.position.z = z
+  this.lazer.rotation.x = rotx
+  this.lazer.rotation.y = roty
+  this.lazer.rotation.z = rotz
+  this.timeout = 60;
+  this.id = id;
+  this.username = username;
+  this.model = tielazerorig.clone('Tielazer');
+  this.model.visibility = 1;
+  this.model.parent = this.lazer;
+}
+Tielazer.prototype.update = function() {
+  this.lazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
+  this.timeout -= 1;
+}
+
+Tielazer.prototype.check = function() {
+  if (this.timeout <= 0) {
+    return true
+  } else {
+    return false
+  }
+}
+Tielazer.prototype.destroy = function() {
+  this.lazer.dispose();
+  this.model.visibility = 0;
+  this.model.dispose();
+}

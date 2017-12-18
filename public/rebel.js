@@ -108,36 +108,10 @@ var Play_Game_As_Rebel = function() {
     Ties.push(new Tie(place, 0, 0, 0, 0, 0, 0, data.username, data.id));
   });
   socket.on('new_rebel_shot', function(data) {
-    var place = XWinglazers.length + 1;
-    var newlazerthing = BABYLON.Mesh.CreateBox("XWinglazers[" + place + "]", 10, scene);
-    newlazerthing.visibility = 0;
-    newlazerthing.position.x = data.x
-    newlazerthing.position.y = data.y
-    newlazerthing.position.z = data.z
-    newlazerthing.rotation.x = data.rotationx
-    newlazerthing.rotation.y = data.rotationy
-    newlazerthing.rotation.z = data.rotationz
-    newlazerthing.timeout = 60;
-    newlazerthing.id = data.id;
-    newlazerthing.username = data.username;
-    XWinglazers.push(newlazerthing);
-    makeXWingLazer(place, newlazerthing);
+    XWinglazers.push(new XWinglazer(data.x, data.y, data.z, data.rotationx, data.rotationy, data.rotationz, data.id, data.username));
   });
   socket.on('new_empire_shot', function(data) {
-    var place = Tielazers.length + 1;
-    var newlazerthing = BABYLON.Mesh.CreateBox("Tielazers[" + place + "]", 20, scene);
-    newlazerthing.visibility = 0;
-    newlazerthing.position.x = data.x
-    newlazerthing.position.y = data.y
-    newlazerthing.position.z = data.z
-    newlazerthing.rotation.x = data.rotationx
-    newlazerthing.rotation.y = data.rotationy
-    newlazerthing.rotation.z = data.rotationz
-    newlazerthing.timeout = 60;
-    newlazerthing.id = data.id;
-    newlazerthing.username = data.username;
-    Tielazers.push(newlazerthing);
-    makeTieLazer(place, newlazerthing);
+    Tielazers.push(new Tielazer(data.x, data.y, data.z, data.rotationx, data.rotationy, data.rotationz, data.id, data.username));
   });
 
 
@@ -273,57 +247,40 @@ var Play_Game_As_Rebel = function() {
     }
 
     XWinglazers.forEach(function(xwinglazer, index_lazer) {
-      xwinglazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
-      xwinglazer.timeout -= 1;
-      XWinglazermodels.forEach(function(xwinglazermodel, j) {
-        if (xwinglazer.timeout < 0) {
-          xwinglazermodel.visibility = 0;
-          xwinglazermodel.dispose();
-          XWinglazermodels.splice(j, 1);
-          xwinglazer.dispose();
-          XWinglazers.splice(index_lazer, 1);
-        }
-      });
+      xwinglazer.update();
+      if (xwinglazer.check()) {
+        xwinglazer.destroy();
+        XWinglazers.splice(index_lazer, 1);
+      }
       Ties.forEach(function(tie, index_tie) {
-        if (xwinglazer.intersectsMesh(tie.tie, false) && xwinglazer.timeout > 0) {
-          XWinglazermodels[index_lazer].visibility = 0;
-          XWinglazermodels.splice(index_lazer, 1);
+        if (xwinglazer.lazer.intersectsMesh(tie.tie, false)) {
+          xwinglazer.destroy();
           XWinglazers.splice(index_lazer, 1);
         }
       });
     });
     Tielazers.forEach(function(tielazer, index_lazer) {
-      tielazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
-      tielazer.timeout -= 1;
-      Tielazermodels.forEach(function(tielazermodel, j) {
-        if (tielazer.timeout < 0) {
-          tielazermodel.visibility = 0;
-          tielazermodel.dispose();
-          Tielazermodels.splice(j, 1);
-          tielazer.dispose();
-          Tielazers.splice(index_lazer, 1);
-        }
-      });
+      tielazer.update();
+      if (tielazer.check()) {
+        tielazer.destroy();
+        Tielazers.splice(index_lazer, 1);
+      }
       XWings.forEach(function(xwing, index_xwing) {
-        if (tielazer.intersectsMesh(xwing.xwing, false) && tielazer.timeout > 0) {
-          if (tielazer.intersectsMesh(playerbox, false)) {
+        if (tielazer.lazer.intersectsMesh(xwing.xwing, false)) {
+          if (tielazer.lazer.intersectsMesh(playerbox, false)) {
             health -= 20;
             if (health <= 0) {
               selfmodel.visibility = 0;
               killed = tielazer.username;
-              camerabox.parent = playerbox;
               socket.emit('dead_rebel', tielazer.id);
               alive = false;
             }
-            Tielazermodels[index_lazer].visibility = 0;
-            Tielazermodels.splice(index_lazer, 1);
+            tielazer.destroy();
             Tielazers.splice(index_lazer, 1);
           } else {
-            Tielazermodels[index_lazer].visibility = 0;
-            Tielazermodels.splice(index_lazer, 1);
+            tielazer.destroy();
             Tielazers.splice(index_lazer, 1);
           }
-
         }
       });
     });
