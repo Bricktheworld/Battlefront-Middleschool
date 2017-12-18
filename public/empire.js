@@ -260,8 +260,8 @@ var Play_Game_As_Imperial = function() {
             health -= 20;
             if (health <= 0) {
               selfmodel.visibility = 0;
-              killed = tielazer.username;
-              socket.emit('dead_rebel', tielazer.id);
+              killed = xwinglazer.username;
+              socket.emit('dead_rebel', xwinglazer.id);
               alive = false;
             }
             xwinglazer.destroy();
