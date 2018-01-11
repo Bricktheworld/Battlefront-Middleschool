@@ -149,7 +149,7 @@ Tie.prototype.destroy = function() {
 }
 
 function XWinglazer(x, y, z, rotx, roty, rotz, id, username) {
-  this.lazer = BABYLON.Mesh.CreateBox("XWinglazer", 10, scene);
+  this.lazer = BABYLON.Mesh.CreateBox("XWinglazer", 20, scene);
   this.lazer.visibility = 0;
   this.lazer.position.x = x
   this.lazer.position.y = y
