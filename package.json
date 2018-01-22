@@ -13,6 +13,7 @@
   "author": "Brandon Shihabi",
   "license": "BSD-2-Clause",
   "dependencies": {
+    "babylonjs": "^3.2.0-alpha4",
     "express": "^4.15.5",
     "socket.io": "^2.0.3"
   }

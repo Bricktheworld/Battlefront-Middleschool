@@ -73,17 +73,6 @@ io.sockets.on('connection', function(socket) {
     socket.emit('Ties', Ties);
     socket.on('update_rebel', function(data) {
       var xwing;
-      //       for (var i = XWings.length - 1; i >= 0; i--) {
-      //         if (XWings[i].id == socket.id) {
-      //           xwing = XWings[i];
-      //           xwing.x = data.x;
-      //           xwing.y = data.y;
-      //           xwing.z = data.z;
-      //           xwing.rotationx = data.rotationx;
-      //           xwing.rotationy = data.rotationy;
-      //           xwing.rotationz = data.rotationz;
-      //         }
-      //       }
       xwing = socket.player;
       xwing.x = data.x;
       xwing.y = data.y;
@@ -95,17 +84,6 @@ io.sockets.on('connection', function(socket) {
     });
     socket.on('update_empire', function(data) {
       var tie;
-      //       for (var i = Ties.length - 1; i >= 0; i--) {
-      //         if (Ties[i].id == socket.id) {
-      //           tie = Ties[i];
-      //           tie.x = data.x;
-      //           tie.y = data.y;
-      //           tie.z = data.z;
-      //           tie.rotationx = data.rotationx;
-      //           tie.rotationy = data.rotationy;
-      //           tie.rotationz = data.rotationz;
-      //         }
-      //       }
       tie = socket.player;
       tie.x = data.x;
       tie.y = data.y;
@@ -149,7 +127,7 @@ io.sockets.on('connection', function(socket) {
       for (var i = XWings.length - 1; i >= 0; i--) {
         if (XWings[i].id == socket.id) {
           XWings.splice(i, 1);
-          io.emit('rebel_left', i);
+          io.emit('rebel_left', socket.id);
           console.log(i);
         }
       }
@@ -157,7 +135,7 @@ io.sockets.on('connection', function(socket) {
       for (var i = Ties.length - 1; i >= 0; i--) {
         if (Ties[i].id == socket.id) {
           Ties.splice(i, 1);
-          io.emit('imperial_left', i);
+          io.emit('imperial_left', socket.id);
           console.log(i);
         }
       }
