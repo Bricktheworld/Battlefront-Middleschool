@@ -13,7 +13,7 @@ var Empirebotboxes = [];
 var Rebelbotboxes = [];
 var XWinglazers = [];
 var Tielazers = [];
-var Usernames = ["[BOT]Sheldon", "[BOT]Pillar", "Tarka", "[BOT]Mei", "[BOT]Jem Dies", "[BOT]You Suck cus (a)I", "[BOT]LOL", "[BOT]I was just bullied", "[BOT]Stop Bullying Me", "[BOT]BotBotBotBotBot", "[BOT]01101000 01101001","[BOT]I suck", "[BOT]I need better AI", "[BOT]Just want to be good", "[BOT]Iwanttobewherepeopleare"];
+var Usernames = ["[BOT]Sheldon", "[BOT]Pillar", "Tarka", "[BOT]Mei", "[BOT]Jem Dies", "[BOT]You Suck cus (a)I", "[BOT]LOL", "[BOT]I was just bullied", "[BOT]Stop Bullying Me", "[BOT]BotBotBotBotBot", "[BOT]01101000 01101001", "[BOT]I suck", "[BOT]I need better AI", "[BOT]Just want to be good", "[BOT]Iwanttobewherepeopleare"];
 var needXWing = false;
 var needTie = false;
 
@@ -216,7 +216,9 @@ setInterval(function() {
 setInterval(function() {
   if (needXWing) {
     var id = guidGenerator();
-    var username = Usernames[Math.random() * Usernames.length];
+    var usernameint = Math.floor(Math.random() * Usernames.length);
+    var username = Usernames[usernameint];
+    console.log(username)
     var newxwingbox = BABYLON.Mesh.CreateBox("botbox", 20, scene);
     var newxwingobj = new XWing(id, 0, 0, 0, 0, 0, 0, username);
     var newxwingbot = new rebelbot(0, 0, 0, 0, 0, 0, username, id, newxwingbox, newxwingobj);
@@ -227,7 +229,8 @@ setInterval(function() {
   }
   if (needTie) {
     var id = guidGenerator();
-    var username = Usernames[Math.random() * Usernames.length];
+    var usernameint = Math.floor(Math.random() * Usernames.length);
+    var username = Usernames[usernameint];
     var newtiebox = BABYLON.Mesh.CreateBox("botbox", 20, scene);
     var newtieobj = new Tie(id, 0, 0, 0, 0, 0, 0, username);
     var newtiebot = new empirebot(0, 0, 0, 0, 0, 0, username, id, newtiebox, newtieobj);
@@ -393,17 +396,24 @@ engine.runRenderLoop(function() {
       if (xwinglazer.intersectsMesh(Empirebotboxes[i], false)) {
         Empirebots[i].health -= 20;
         console.log(Empirebots[i].health);
-      }
-      if (Empirebots[i].health <= 0) {
-        io.to(xwinglazer.id).emit('Killed_him', Empirebots[i].username);
-        Empirebots.splice(i, 1);
-        Empirebotboxes[i].dispose();
-        Empirebotboxes.splice(i, 1);
-        Ties.splice(i, 1);
-        io.emit('imperial_died', i);
+        if (Empirebots[i].health <= 0) {
+          Empirebots[i].alive = false;
+          Empirebots[i].killed = xwinglazer.id;
+        }
       }
     });
   }
+  for (var i = 0; i < Empirebotboxes.length; i++) {
+    if (Empirebots[i].alive === false) {
+      io.to(Empirebots[i].killed).emit('Killed_him', Empirebots[i].username);
+      Empirebots.splice(i, 1);
+      Empirebotboxes[i].dispose();
+      Empirebotboxes.splice(i, 1);
+      Ties.splice(i, 1);
+      io.emit('imperial_died', i);
+    }
+  }
+
   for (var i = 0; i < Rebelbotboxes.length; i++) {
     Rebelbots[i].update(Rebelbotboxes[i]);
     Rebelbotboxes[i].translate(BABYLON.Axis.Z, 1.5, BABYLON.Space.LOCAL);
@@ -413,16 +423,22 @@ engine.runRenderLoop(function() {
       if (tielazer.intersectsMesh(Rebelbotboxes[i], false)) {
         Rebelbots[i].health -= 20;
         console.log(Rebelbots[i].health);
-      }
-      if (Rebelbots[i].health <= 0) {
-        io.to(tielazer.id).emit('Killed_him', Rebelbots[i].username);
-        Rebelbots.splice(i, 1);
-        Rebelbotboxes[i].dispose();
-        Rebelbotboxes.splice(i, 1);
-        XWings.splice(i, 1);
-        io.emit('rebel_died', i);
+        if (Rebelbots[i].health <= 0) {
+          Rebelbots[i].alive = false;
+          Rebelbots[i].killed = tielazer.id;
+        }
       }
     });
+  }
+  for (var i = 0; i < Rebelbotboxes.length; i++) {
+    if (Rebelbots[i].alive === false) {
+      io.to(Rebelbots[i].killed).emit('Killed_him', Rebelbots[i].username);
+      Rebelbots.splice(i, 1);
+      Rebelbotboxes[i].dispose();
+      Rebelbotboxes.splice(i, 1);
+      XWings.splice(i, 1);
+      io.emit('rebel_died', i);
+    }
   }
   scene.render();
 });
