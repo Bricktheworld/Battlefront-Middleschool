@@ -383,7 +383,7 @@ io.sockets.on('connection', function(socket) {
 engine.runRenderLoop(function() {
   for (var i = 0; i < Empirebotboxes.length; i++) {
     Empirebots[i].update(Empirebotboxes[i]);
-    Empirebotboxes[i].translate(BABYLON.Axis.Z, 2, BABYLON.Space.LOCAL);
+    Empirebotboxes[i].translate(BABYLON.Axis.Z, 1.5, BABYLON.Space.LOCAL);
     var box = Empirebotboxes[i];
     XWinglazers.forEach(function(xwinglazer, index_lazer) {
       xwinglazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
@@ -403,7 +403,7 @@ engine.runRenderLoop(function() {
   }
   for (var i = 0; i < Rebelbotboxes.length; i++) {
     Rebelbots[i].update(Rebelbotboxes[i]);
-    Rebelbotboxes[i].translate(BABYLON.Axis.Z, 2, BABYLON.Space.LOCAL);
+    Rebelbotboxes[i].translate(BABYLON.Axis.Z, 1.5, BABYLON.Space.LOCAL);
     var box = Rebelbotboxes[i];
     Tielazers.forEach(function(tielazer, index_lazer) {
       tielazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
