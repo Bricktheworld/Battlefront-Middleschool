@@ -18,7 +18,7 @@ function XWing(i, x, y, z, rotx, roty, rotz, usernm, id) {
   } else {
     this.pin.color = "#f44141";
   }
-  if (id == selfid) {
+  if (id == selfid && this.username == selfusername) {
     this.pin.alpha = 0;
     this.self = true;
     //     camerabox.parent = this.xwing;
@@ -93,7 +93,7 @@ function Tie(i, x, y, z, rotx, roty, rotz, usernm, id) {
   } else {
     this.pin.color = "#f44141";
   }
-  if (id === selfid) {
+  if (id === selfid && this.username === selfusername) {
     this.pin.alpha = 0;
     this.self = true;
     //     camerabox.parent = this.tie;
@@ -181,6 +181,7 @@ XWinglazer.prototype.destroy = function() {
   this.model.visibility = 0;
   this.model.dispose();
 }
+
 function Tielazer(x, y, z, rotx, roty, rotz, id, username) {
   this.lazer = BABYLON.Mesh.CreateBox("Tielazer", 20, scene);
   this.lazer.visibility = 0;

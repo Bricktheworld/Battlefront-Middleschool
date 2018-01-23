@@ -159,28 +159,6 @@ var Play_Game_As_Imperial = function() {
     selfkills.unshift(username);
   });
   setInterval(function() {
-    //     XWinglazers.forEach(function(xwinglazer, i) {
-    //       XWinglazermodels.forEach(function(xwinglazermodel, j) {
-    //         if (xwinglazer.timeout < 0) {
-    //           xwinglazermodel.visibility = 0;
-    //           xwinglazermodel.dispose();
-    //           XWinglazermodels.splice(j, 1);
-    //           xwinglazer.dispose();
-    //           XWinglazers.splice(i, 1);
-    //         }
-    //       });
-    //     });
-    //     Tielazers.forEach(function(tielazer, i) {
-    //       Tielazermodels.forEach(function(tielazermodel, j) {
-    //         if (tielazer.timeout < 0) {
-    //           tielazermodel.visibility = 0;
-    //           tielazermodel.dispose();
-    //           Tielazermodels.splice(j, 1);
-    //           tielazer.dispose();
-    //           Tielazers.splice(i, 1);
-    //         }
-    //       });
-    //     });
     for (var i = Blasts.length - 1; i >= 0; i--) {
       let specificblast = Blasts[i];
       if (Blasts[i].killtime < 0) {
@@ -188,22 +166,6 @@ var Play_Game_As_Imperial = function() {
         Blasts.splice(i, 1);
       }
     }
-    // if (playerbox.intersectsMesh(warningbounds, false)) {
-    //   outsidewarning = false
-    // } else {
-    //   outsidewarning = true;
-    // }
-    // if (playerbox.intersectsMesh(bounds, false)) {
-    //   outside = false;
-    // } else {
-    //   outside = true;
-    // }
-    // if(outside === true){
-    //   selfmodel.visibility = 0;
-    //   alive = false;
-    //   health = 0;
-    //   socket.emit('dead_imperial', "fuck");
-    // }
   }, 1000);
   // Register a render loop to repeatedly render the scene
   engine.runRenderLoop(function() {
@@ -246,9 +208,6 @@ var Play_Game_As_Imperial = function() {
     trackmousex = -MouseX;
     var playerbox = scene.getMeshByName("playerbox");
     scene.getMeshByName("playerbox").translate(BABYLON.Axis.Z, velocity, BABYLON.Space.LOCAL);
-    // scene.getMeshByName("lagbox").position = scene.getMeshByName("playerbox").position;
-    // var lagrotation = BABYLON.Vector3.Lerp(scene.getMeshByName("lagbox").rotation, scene.getMeshByName("playerbox").rotation, 1);
-    // scene.getMeshByName("lagbox").rotation = lagrotation;
     for (var i = XWings.length - 1; i >= 0; i--) {
       XWings[i].update();
     }
@@ -309,7 +268,7 @@ var Play_Game_As_Imperial = function() {
       id: selfid,
       controlX: MouseX,
       controlY: MouseY,
-      username: username
+      username: selfusername
     };
     socket.emit('update_empire', data);
     if (alive === false) {

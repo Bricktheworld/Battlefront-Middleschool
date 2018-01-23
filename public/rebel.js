@@ -114,7 +114,6 @@ var Play_Game_As_Rebel = function() {
     Tielazers.push(new Tielazer(data.x, data.y, data.z, data.rotationx, data.rotationy, data.rotationz, data.id, data.username));
   });
 
-
   //handle leaving players
   socket.on('rebel_left', function(data) {
     for (var i = XWings.length - 1; i >= 0; i--) {
@@ -156,7 +155,6 @@ var Play_Game_As_Rebel = function() {
     selfkills.unshift(username);
   });
   setInterval(function() {
-
     for (var i = Blasts.length - 1; i >= 0; i--) {
       let specificblast = Blasts[i];
       if (Blasts[i].killtime < 0) {
@@ -164,23 +162,8 @@ var Play_Game_As_Rebel = function() {
         Blasts.splice(i, 1);
       }
     }
-    // if (playerbox.intersectsMesh(warningbounds, false)) {
-    //   outsidewarning = false
-    // } else {
-    //   outsidewarning = true;
-    // }
-    // if (playerbox.intersectsMesh(bounds, false)) {
-    //   outside = false;
-    // } else {
-    //   outside = true;
-    // }
-    // if(outside === true){
-    //   selfmodel.visibility = 0;
-    //   alive = false;
-    //   health = 0;
-    //   socket.emit('dead_rebel', "fuck");
-    // }
   }, 1000);
+
   // Register a render loop to repeatedly render the scene
   engine.runRenderLoop(function() {
     if (keys.left) { //A
@@ -222,9 +205,6 @@ var Play_Game_As_Rebel = function() {
     trackmousex = -MouseX;
     var playerbox = scene.getMeshByName("playerbox");
     scene.getMeshByName("playerbox").translate(BABYLON.Axis.Z, velocity, BABYLON.Space.LOCAL);
-    // scene.getMeshByName("lagbox").position = scene.getMeshByName("playerbox").position;
-    // var lagrotation = BABYLON.Vector3.Lerp(scene.getMeshByName("lagbox").rotation, scene.getMeshByName("playerbox").rotation, 1);
-    // scene.getMeshByName("lagbox").rotation = lagrotation;
     for (var i = XWings.length - 1; i >= 0; i--) {
       XWings[i].update();
     }
@@ -285,7 +265,7 @@ var Play_Game_As_Rebel = function() {
       id: selfid,
       controlX: MouseX,
       controlY: MouseY,
-      username: username
+      username: selfusername
     };
     socket.emit('update_rebel', data);
     if (alive === false) {

@@ -40,6 +40,8 @@ var keys = {
 var loaded = false;
 var trackercolorrebel;
 var trackercolorempire;
+var bots = [];
+var selfusername
 
 // -------------------------------------------Start Writing Important Stuff-------------------------------------------------------\\
 var canvas = document.getElementById('canvas');
@@ -321,10 +323,10 @@ function JoinEmpire() {
 function SetUsername(input) {
   if (event.keyCode === 13 && playing === false && input.value !== "") {
     document.getElementById('UserNameField').style.zIndex = 900;
-    username = input.value;
+    selfusername = input.value;
     let data = {
       team: team,
-      username: username
+      username: selfusername
     }
     socket.emit('startdata', data);
     playing = true;
