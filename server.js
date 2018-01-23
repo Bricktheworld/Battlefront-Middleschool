@@ -13,6 +13,7 @@ var Empirebotboxes = [];
 var Rebelbotboxes = [];
 var XWinglazers = [];
 var Tielazers = [];
+var Usernames = ["[BOT]Sheldon", "[BOT]Pillar", "Tarka", "[BOT]Mei", "[BOT]Jem Dies", "[BOT]You Suck cus (a)I", "[BOT]LOL", "[BOT]I was just bullied", "[BOT]Stop Bullying Me", "[BOT]BotBotBotBotBot", "[BOT]01101000 01101001","[BOT]I suck", "[BOT]I need better AI", "[BOT]Just want to be good", "[BOT]Iwanttobewherepeopleare"];
 var needXWing = false;
 var needTie = false;
 
@@ -215,9 +216,10 @@ setInterval(function() {
 setInterval(function() {
   if (needXWing) {
     var id = guidGenerator();
+    var username = Usernames[Math.random() * Usernames.length];
     var newxwingbox = BABYLON.Mesh.CreateBox("botbox", 20, scene);
-    var newxwingobj = new XWing(id, 0, 0, 0, 0, 0, 0, "[BOT]You Suck Cus (a)I");
-    var newxwingbot = new rebelbot(0, 0, 0, 0, 0, 0, "[BOT]You Suck Cus (a)I", id, newxwingbox, newxwingobj);
+    var newxwingobj = new XWing(id, 0, 0, 0, 0, 0, 0, username);
+    var newxwingbot = new rebelbot(0, 0, 0, 0, 0, 0, username, id, newxwingbox, newxwingobj);
     Rebelbotboxes.push(newxwingbox);
     Rebelbots.push(newxwingbot);
     io.sockets.emit('new rebel', newxwingobj);
@@ -225,9 +227,10 @@ setInterval(function() {
   }
   if (needTie) {
     var id = guidGenerator();
+    var username = Usernames[Math.random() * Usernames.length];
     var newtiebox = BABYLON.Mesh.CreateBox("botbox", 20, scene);
-    var newtieobj = new Tie(id, 0, 0, 0, 0, 0, 0, "[BOT]You Suck Cus (a)I");
-    var newtiebot = new empirebot(0, 0, 0, 0, 0, 0, "[BOT]You Suck Cus (a)I", id, newtiebox, newtieobj);
+    var newtieobj = new Tie(id, 0, 0, 0, 0, 0, 0, username);
+    var newtiebot = new empirebot(0, 0, 0, 0, 0, 0, username, id, newtiebox, newtieobj);
     Empirebotboxes.push(newtiebox);
     Empirebots.push(newtiebot);
     io.sockets.emit('new imperial', newtieobj);
