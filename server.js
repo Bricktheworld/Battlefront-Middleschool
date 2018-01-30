@@ -205,9 +205,9 @@ function heartbeat() {
   io.sockets.emit('heartbeat_empire', Ties);
 }
 setInterval(function() {
-  if (XWings.length >= 1 && Ties.length === 0 || XWings.length - Ties.length >= 3) {
+  if (XWings.length >= 1 && Ties.length === 0 || XWings.length - Ties.length >= 1) {
     needTie = true;
-  } else if (Ties.length >= 1 && XWings.length === 0 || Ties.length - XWings.length >= 3) {
+  } else if (Ties.length >= 1 && XWings.length === 0 || Ties.length - XWings.length >= 1) {
     needXWing = true;
   } else {
     needTie = false;
