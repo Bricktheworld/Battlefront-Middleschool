@@ -411,13 +411,14 @@ engine.runRenderLoop(function() {
           }
         }
       }
+      
     });
   }
   for (var i = 0; i < Empirebotboxes.length; i++) {
     if (Empirebots[i].alive === false) {
       io.to(Empirebots[i].killed).emit('Killed_him', Empirebots[i].username);
       Empirebots.splice(i, 1);
-      Empirebotboxes[i].dispose();
+//       Empirebotboxes[i].dispose();
       Empirebotboxes.splice(i, 1);
       Ties.splice(i, 1);
       io.emit('imperial_died', i);
@@ -451,7 +452,7 @@ engine.runRenderLoop(function() {
     if (Rebelbots[i].alive === false) {
       io.to(Rebelbots[i].killed).emit('Killed_him', Rebelbots[i].username);
       Rebelbots.splice(i, 1);
-      Rebelbotboxes[i].dispose();
+//       Rebelbotboxes[i].dispose();
       Rebelbotboxes.splice(i, 1);
       XWings.splice(i, 1);
       io.emit('rebel_died', i);
