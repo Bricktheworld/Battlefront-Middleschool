@@ -328,11 +328,11 @@ io.sockets.on('connection', function(socket) {
     });
     socket.on('dead_rebel', function(socketid) {
       console.log("Client has died" + socketid);
-      for (var i = Empirebots.length - 1; i >= 0; i--) {
-        if (Empirebots[i].id == socketid) {
-          Empirebots[i].searching = true;
-        }
-      }
+//       for (var i = Empirebots.length - 1; i >= 0; i--) {
+//         if (Empirebots[i].id == socketid) {
+//           Empirebots[i].searching = true;
+//         }
+//       }
       for (var i = XWings.length - 1; i >= 0; i--) {
         if (XWings[i].id == socket.id) {
           socket.broadcast.to(socketid).emit('Killed_him', XWings[i].username);
@@ -343,11 +343,11 @@ io.sockets.on('connection', function(socket) {
     });
     socket.on('dead_imperial', function(socketid) {
       console.log("Client has died" + socketid);
-      for (var i = Rebelbots.length - 1; i >= 0; i--) {
-        if (Rebelbots[i].id == socketid) {
-          Rebelbots[i].searching = true;
-        }
-      }
+//       for (var i = Rebelbots.length - 1; i >= 0; i--) {
+//         if (Rebelbots[i].id == socketid) {
+//           Rebelbots[i].searching = true;
+//         }
+//       }
       for (var i = Ties.length - 1; i >= 0; i--) {
         if (Ties[i].id == socket.id) {
           socket.broadcast.to(socketid).emit('Killed_him', Ties[i].username);
