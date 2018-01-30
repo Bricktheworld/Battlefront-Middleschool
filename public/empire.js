@@ -119,13 +119,13 @@ var Play_Game_As_Imperial = function() {
 
 
   //handle leaving players
-  socket.on('rebel_left', function(data) {
+  socket.on('rebel_left', function(i) {
     XWings[i].destroy();
     XWings.splice(i, 1);
   });
 
   //handle leaving players
-  socket.on('imperial_left', function(data) {
+  socket.on('imperial_left', function(i) {
     Ties[i].destroy();
     Ties.splice(i, 1);
   });

@@ -121,7 +121,7 @@ var Play_Game_As_Rebel = function() {
   });
 
   //handle leaving players
-  socket.on('imperial_left', function(data) {
+  socket.on('imperial_left', function(i) {
     Ties[i].destroy();
     Ties.splice(i, 1);
   });
