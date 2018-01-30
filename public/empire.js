@@ -120,22 +120,14 @@ var Play_Game_As_Imperial = function() {
 
   //handle leaving players
   socket.on('rebel_left', function(data) {
-    for (var i = XWings.length - 1; i >= 0; i--) {
-      if (XWings[i].id == data) {
-        XWings[i].destroy();
-        XWings.splice(i, 1);
-      }
-    }
+    XWings[i].destroy();
+    XWings.splice(i, 1);
   });
 
   //handle leaving players
   socket.on('imperial_left', function(data) {
-    for (var i = Ties.length - 1; i >= 0; i--) {
-      if (Ties[i].id == data) {
-        Ties[i].destroy();
-        Ties.splice(i, 1);
-      }
-    }
+    Ties[i].destroy();
+    Ties.splice(i, 1);
   });
 
   //handle dead players

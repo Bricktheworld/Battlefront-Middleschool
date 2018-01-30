@@ -369,7 +369,7 @@ io.sockets.on('connection', function(socket) {
       for (var i = XWings.length - 1; i >= 0; i--) {
         if (XWings[i].id == socket.id) {
           XWings.splice(i, 1);
-          io.emit('rebel_left', socket.id);
+          io.emit('rebel_left', i);
           console.log(i);
         }
       }
@@ -382,7 +382,7 @@ io.sockets.on('connection', function(socket) {
       for (var i = Ties.length - 1; i >= 0; i--) {
         if (Ties[i].id == socket.id) {
           Ties.splice(i, 1);
-          io.emit('imperial_left', socket.id);
+          io.emit('imperial_left', i);
           console.log(i);
         }
       }
