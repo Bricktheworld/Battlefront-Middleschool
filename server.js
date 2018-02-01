@@ -103,7 +103,7 @@ empirebot.prototype.update = function(object) {
     rotationx: object.rotation.x,
     rotationy: object.rotation.y,
     rotationz: object.rotation.z,
-    id: this.id,
+    id: false,
     username: this.username
   };
   this.origin.x = this.data.x;
@@ -175,7 +175,7 @@ rebelbot.prototype.update = function(object) {
     rotationx: object.rotation.x,
     rotationy: object.rotation.y,
     rotationz: object.rotation.z,
-    id: this.id,
+    id: false,
     username: this.username
   };
   this.origin.x = this.data.x;
@@ -205,7 +205,7 @@ function heartbeat() {
   io.sockets.emit('heartbeat_empire', Ties);
 }
 setInterval(function() {
-  if (XWings.length >= 1 && Ties.length === 0 || XWings.length > Ties.length ) {
+  if (XWings.length >= 1 && Ties.length === 0 || XWings.length > Ties.length) {
     needTie = true;
   } else if (Ties.length >= 1 && XWings.length === 0 || Ties.length > XWings.length) {
     needXWing = true;
@@ -328,11 +328,11 @@ io.sockets.on('connection', function(socket) {
     });
     socket.on('dead_rebel', function(socketid) {
       console.log("Client has died" + socketid);
-//       for (var i = Empirebots.length - 1; i >= 0; i--) {
-//         if (Empirebots[i].id == socketid) {
-//           Empirebots[i].searching = true;
-//         }
-//       }
+      //       for (var i = Empirebots.length - 1; i >= 0; i--) {
+      //         if (Empirebots[i].id == socketid) {
+      //           Empirebots[i].searching = true;
+      //         }
+      //       }
       for (var i = XWings.length - 1; i >= 0; i--) {
         if (XWings[i].id == socket.id) {
           socket.broadcast.to(socketid).emit('Killed_him', XWings[i].username);
@@ -343,11 +343,11 @@ io.sockets.on('connection', function(socket) {
     });
     socket.on('dead_imperial', function(socketid) {
       console.log("Client has died" + socketid);
-//       for (var i = Rebelbots.length - 1; i >= 0; i--) {
-//         if (Rebelbots[i].id == socketid) {
-//           Rebelbots[i].searching = true;
-//         }
-//       }
+      //       for (var i = Rebelbots.length - 1; i >= 0; i--) {
+      //         if (Rebelbots[i].id == socketid) {
+      //           Rebelbots[i].searching = true;
+      //         }
+      //       }
       for (var i = Ties.length - 1; i >= 0; i--) {
         if (Ties[i].id == socket.id) {
           socket.broadcast.to(socketid).emit('Killed_him', Ties[i].username);
@@ -411,19 +411,26 @@ engine.runRenderLoop(function() {
           }
         }
       }
-      
     });
-  }
-  for (var i = 0; i < Empirebotboxes.length; i++) {
     if (Empirebots[i].alive === false) {
       io.to(Empirebots[i].killed).emit('Killed_him', Empirebots[i].username);
       Empirebots.splice(i, 1);
-//       Empirebotboxes[i].dispose();
+      //       Empirebotboxes[i].dispose();
       Empirebotboxes.splice(i, 1);
       Ties.splice(i, 1);
       io.emit('imperial_died', i);
     }
   }
+  //   for (var i = 0; i < Empirebotboxes.length; i++) {
+  //     if (Empirebots[i].alive === false) {
+  //       io.to(Empirebots[i].killed).emit('Killed_him', Empirebots[i].username);
+  //       Empirebots.splice(i, 1);
+  // //       Empirebotboxes[i].dispose();
+  //       Empirebotboxes.splice(i, 1);
+  //       Ties.splice(i, 1);
+  //       io.emit('imperial_died', i);
+  //     }
+  //   }
 
   for (var i = 0; i < Rebelbotboxes.length; i++) {
     Rebelbots[i].update(Rebelbotboxes[i]);
@@ -445,19 +452,26 @@ engine.runRenderLoop(function() {
           }
         }
       }
-
     });
-  }
-  for (var i = 0; i < Rebelbotboxes.length; i++) {
     if (Rebelbots[i].alive === false) {
       io.to(Rebelbots[i].killed).emit('Killed_him', Rebelbots[i].username);
       Rebelbots.splice(i, 1);
-//       Rebelbotboxes[i].dispose();
+      //       Rebelbotboxes[i].dispose();
       Rebelbotboxes.splice(i, 1);
       XWings.splice(i, 1);
       io.emit('rebel_died', i);
     }
   }
+  //   for (var i = 0; i < Rebelbotboxes.length; i++) {
+  //     if (Rebelbots[i].alive === false) {
+  //       io.to(Rebelbots[i].killed).emit('Killed_him', Rebelbots[i].username);
+  //       Rebelbots.splice(i, 1);
+  //       //       Rebelbotboxes[i].dispose();
+  //       Rebelbotboxes.splice(i, 1);
+  //       XWings.splice(i, 1);
+  //       io.emit('rebel_died', i);
+  //     }
+  //   }
   scene.render();
 });
 ///////////////////////////////////////////////////////////////////////////////
