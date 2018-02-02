@@ -244,10 +244,14 @@ setInterval(function() {
 }, 15000);
 setInterval(function() {
   for (var i = Empirebots.length - 1; i >= 0; i--) {
-    Empirebots[i].shoot();
+    if (Empirebots[i] != null) {
+      Empirebots[i].shoot();
+    }
   }
   for (var i = Rebelbots.length - 1; i >= 0; i--) {
-    Rebelbots[i].shoot();
+    if (Rebelbots[i] != null) {
+      Rebelbots[i].shoot();
+    }
   }
 }, 1000 / 3);
 
@@ -261,6 +265,8 @@ io.sockets.on('connection', function(socket) {
     if (data.team == "rebel") {
       var newxwingplayer = new XWing(socket.id, 0, 0, 0, 0, 0, 0, data.username);
       socket.player = newxwingplayer;
+      Rebelbotboxes.push(null);
+      Rebelbots.push(null);
       //everyone else
       socket.broadcast.emit('new rebel', newxwingplayer);
       XWings.push(newxwingplayer);
@@ -268,10 +274,12 @@ io.sockets.on('connection', function(socket) {
     } else if (data.team == "empire") {
       var newtieplayer = new Tie(socket.id, 0, 0, 0, 0, 0, 0, data.username);
       socket.player = newtieplayer;
-
+      Empirebotboxes.push(null);
+      Empirebots.push(null);
       //everyone else
       socket.broadcast.emit('new imperial', newtieplayer);
       Ties.push(newtieplayer);
+
       var id = socket.id;
     }
     socket.emit('entergame', "Welcome!");
@@ -392,33 +400,35 @@ io.sockets.on('connection', function(socket) {
 
 engine.runRenderLoop(function() {
   for (var i = 0; i < Empirebotboxes.length; i++) {
-    Empirebots[i].update(Empirebotboxes[i]);
-    Empirebotboxes[i].translate(BABYLON.Axis.Z, 1.5, BABYLON.Space.LOCAL);
-    var box = Empirebotboxes[i];
-    XWinglazers.forEach(function(xwinglazer, index_lazer) {
-      xwinglazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
-      xwinglazer.timeout -= 1;
-      if (xwinglazer.timeout <= 0) {
-        xwinglazer.dispose();
-        XWinglazers.splice(index_lazer, 1);
-      } else {
-        if (xwinglazer.intersectsMesh(Empirebotboxes[i], false)) {
-          Empirebots[i].health -= 20;
-          console.log(Empirebots[i].health);
-          if (Empirebots[i].health <= 0) {
-            Empirebots[i].alive = false;
-            Empirebots[i].killed = xwinglazer.id;
+    if (Empirebotboxes[i] != null) {
+      Empirebots[i].update(Empirebotboxes[i]);
+      Empirebotboxes[i].translate(BABYLON.Axis.Z, 1.5, BABYLON.Space.LOCAL);
+      var box = Empirebotboxes[i];
+      XWinglazers.forEach(function(xwinglazer, index_lazer) {
+        xwinglazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
+        xwinglazer.timeout -= 1;
+        if (xwinglazer.timeout <= 0) {
+          xwinglazer.dispose();
+          XWinglazers.splice(index_lazer, 1);
+        } else {
+          if (xwinglazer.intersectsMesh(Empirebotboxes[i], false)) {
+            Empirebots[i].health -= 20;
+            console.log(Empirebots[i].health);
+            if (Empirebots[i].health <= 0) {
+              Empirebots[i].alive = false;
+              Empirebots[i].killed = xwinglazer.id;
+            }
           }
         }
+      });
+      if (Empirebots[i].alive === false) {
+        io.to(Empirebots[i].killed).emit('Killed_him', Empirebots[i].username);
+        Empirebots.splice(i, 1);
+        //       Empirebotboxes[i].dispose();
+        Empirebotboxes.splice(i, 1);
+        Ties.splice(i, 1);
+        io.emit('imperial_died', i);
       }
-    });
-    if (Empirebots[i].alive === false) {
-      io.to(Empirebots[i].killed).emit('Killed_him', Empirebots[i].username);
-      Empirebots.splice(i, 1);
-      //       Empirebotboxes[i].dispose();
-      Empirebotboxes.splice(i, 1);
-      Ties.splice(i, 1);
-      io.emit('imperial_died', i);
     }
   }
   //   for (var i = 0; i < Empirebotboxes.length; i++) {
@@ -433,33 +443,35 @@ engine.runRenderLoop(function() {
   //   }
 
   for (var i = 0; i < Rebelbotboxes.length; i++) {
-    Rebelbots[i].update(Rebelbotboxes[i]);
-    Rebelbotboxes[i].translate(BABYLON.Axis.Z, 1.5, BABYLON.Space.LOCAL);
-    var box = Rebelbotboxes[i];
-    Tielazers.forEach(function(tielazer, index_lazer) {
-      tielazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
-      tielazer.timeout -= 1;
-      if (tielazer.timeout <= 0) {
-        tielazer.dispose();
-        Tielazers.splice(index_lazer, 1);
-      } else {
-        if (tielazer.intersectsMesh(Rebelbotboxes[i], false)) {
-          Rebelbots[i].health -= 20;
-          console.log(Rebelbots[i].health);
-          if (Rebelbots[i].health <= 0) {
-            Rebelbots[i].alive = false;
-            Rebelbots[i].killed = tielazer.id;
+    if (Rebelbotboxes != null) {
+      Rebelbots[i].update(Rebelbotboxes[i]);
+      Rebelbotboxes[i].translate(BABYLON.Axis.Z, 1.5, BABYLON.Space.LOCAL);
+      var box = Rebelbotboxes[i];
+      Tielazers.forEach(function(tielazer, index_lazer) {
+        tielazer.translate(BABYLON.Axis.Z, 40, BABYLON.Space.LOCAL);
+        tielazer.timeout -= 1;
+        if (tielazer.timeout <= 0) {
+          tielazer.dispose();
+          Tielazers.splice(index_lazer, 1);
+        } else {
+          if (tielazer.intersectsMesh(Rebelbotboxes[i], false)) {
+            Rebelbots[i].health -= 20;
+            console.log(Rebelbots[i].health);
+            if (Rebelbots[i].health <= 0) {
+              Rebelbots[i].alive = false;
+              Rebelbots[i].killed = tielazer.id;
+            }
           }
         }
+      });
+      if (Rebelbots[i].alive === false) {
+        io.to(Rebelbots[i].killed).emit('Killed_him', Rebelbots[i].username);
+        Rebelbots.splice(i, 1);
+        //       Rebelbotboxes[i].dispose();
+        Rebelbotboxes.splice(i, 1);
+        XWings.splice(i, 1);
+        io.emit('rebel_died', i);
       }
-    });
-    if (Rebelbots[i].alive === false) {
-      io.to(Rebelbots[i].killed).emit('Killed_him', Rebelbots[i].username);
-      Rebelbots.splice(i, 1);
-      //       Rebelbotboxes[i].dispose();
-      Rebelbotboxes.splice(i, 1);
-      XWings.splice(i, 1);
-      io.emit('rebel_died', i);
     }
   }
   //   for (var i = 0; i < Rebelbotboxes.length; i++) {
