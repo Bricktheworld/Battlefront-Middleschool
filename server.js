@@ -345,6 +345,8 @@ io.sockets.on('connection', function(socket) {
         if (XWings[i].id == socket.id) {
           socket.broadcast.to(socketid).emit('Killed_him', XWings[i].username);
           XWings.splice(i, 1);
+          Rebelbots.splice(i, 1);
+          Rebelbotboxes.splice(i, 1);
           io.emit('rebel_died', i);
         }
       }
@@ -360,6 +362,8 @@ io.sockets.on('connection', function(socket) {
         if (Ties[i].id == socket.id) {
           socket.broadcast.to(socketid).emit('Killed_him', Ties[i].username);
           Ties.splice(i, 1);
+          Empirebots.splice(i, 1);
+          Empirebotboxes.splice(i, 1);
           io.emit('imperial_died', i);
           console.log(socketid);
         }
@@ -370,19 +374,28 @@ io.sockets.on('connection', function(socket) {
     console.log("Client has disconnected");
     if (side == "rebel") {
       for (var i = Empirebots.length - 1; i >= 0; i--) {
-        if (Empirebots[i].target.id == socket.id) {
-          Empirebots[i].searching = true;
+        if (Empirebots[i] != null) {
+          if (Empirebots[i].target.id == socket.id) {
+            Empirebots[i].searching = true;
+          }
         }
       }
       for (var i = XWings.length - 1; i >= 0; i--) {
         if (XWings[i].id == socket.id) {
           XWings.splice(i, 1);
+          Rebelbots.splice(i, 1);
+          Rebelbotboxes.splice(i, 1);
           io.emit('rebel_left', i);
           console.log(i);
         }
       }
     } else if (side == "empire") {
       for (var i = Rebelbots.length - 1; i >= 0; i--) {
+        if (Rebelbots[i] != null) {
+          if (Rebelbots[i].target.id == socket.id) {
+            Rebelbots[i].searching = true;
+          }
+        }
         if (Rebelbots[i].target.id == socket.id) {
           Rebelbots[i].searching = true;
         }
@@ -390,6 +403,8 @@ io.sockets.on('connection', function(socket) {
       for (var i = Ties.length - 1; i >= 0; i--) {
         if (Ties[i].id == socket.id) {
           Ties.splice(i, 1);
+          Empirebots.splice(i, 1);
+          Empirebotboxes.splice(i, 1);
           io.emit('imperial_left', i);
           console.log(i);
         }
