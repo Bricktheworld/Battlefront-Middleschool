@@ -443,7 +443,7 @@ engine.runRenderLoop(function() {
   //   }
 
   for (var i = 0; i < Rebelbotboxes.length; i++) {
-    if (Rebelbotboxes != null) {
+    if (Rebelbotboxes[i] != null) {
       Rebelbots[i].update(Rebelbotboxes[i]);
       Rebelbotboxes[i].translate(BABYLON.Axis.Z, 1.5, BABYLON.Space.LOCAL);
       var box = Rebelbotboxes[i];
